@@ -32,18 +32,16 @@ Template Version: 2017-05-26
 
 
 // == Shortcuts and Aliases ==
-// ~ Namespaces ~
+// ~ Type Shortcuts ~ // This is only for names that are unlikely to be shadowed
 using std::cout; // --------------- output to terminal
 using std::endl; // --------------- newline
 using std::cin; // ---------------- input from terminal
 using std::ifstream; // ----------- File Input streams
 using std::ofstream; // ----------- File Output streams
-using std::vector; // ------------- vectors
-using std::list; // --------------- lists
-using std::map; // ---------------- dictionaries
+using std::ostream; // ------------ Output streams
 using std::string; // ------------- strings!           // Requires C++11
 using std::to_string; // ---------- string conversion  // Requires C++11
-// ~ Type Aliases ~
+// ~ Type Aliases ~ // Use this for long type names and names that are likley to be shadowed
 using usll = unsigned long long; // big ints           // Requires C++11
 // ~ Constants ~
 #define EPSILON 1e-8d // ---------- Margin too small to care about
@@ -76,6 +74,7 @@ bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
 
 // == File Tools ==
 bool file_exists( const string& fName );  // Return true if the file exists , otherwise return false
+// std::vector<string> readlines( string path ); // Return all the lines of text file as a string vector
 std::vector<string> readlines( string path ); // Return all the lines of text file as a string vector
 // == End File ==
 
@@ -89,7 +88,7 @@ string strip_after_dot( string fName ); // Return a copy of 'fName' with the fir
 // == Container Tools ==
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-std::ostream& operator<<( std::ostream& os , const std::vector<T>& vec ) { // ostream '<<' operator for vectors
+ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<' operator for vectors
 	// NOTE: This function assumes that the ostream '<<' operator for T has already been defined
 	os << "[ ";
 	for (size_t i = 0; i < vec.size(); i++) {
@@ -101,9 +100,9 @@ std::ostream& operator<<( std::ostream& os , const std::vector<T>& vec ) { // os
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-vector<T> vec_range( T lo , T hi ){
+std::vector<T> vec_range( T lo , T hi ){
 	T i = 0;
-	vector<T> rtnVec;
+	std::vector<T> rtnVec;
 	if( lo < hi )
 		for( i = lo ; i <= hi ; i++ ){ rtnVec.push_back( i ); }
 	else
@@ -113,9 +112,9 @@ vector<T> vec_range( T lo , T hi ){
 
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-list<T> lst_range( T lo , T hi ){
+std::list<T> lst_range( T lo , T hi ){
 	T i = 0;
-	list<T> rtnVec;
+	std::list<T> rtnVec;
 	if( lo < hi )
 		for( i = lo ; i <= hi ; i++ ){ rtnVec.push_back( i ); }
 	else
@@ -124,7 +123,7 @@ list<T> lst_range( T lo , T hi ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_list( T arg , list<T> lst ){
+bool is_arg_in_list( T arg , std::list<T> lst ){
 	// Return true if 'arg' is in 'lst' , false otherwise
 	return find( lst.begin( ) , lst.end() , arg ) != lst.end();
 }

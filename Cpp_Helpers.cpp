@@ -10,9 +10,9 @@ Template Version: 2017-04-13
 
 // == Debug Tools ==
 
-void assert_report(bool assertion, string report) { // Reporting wrapper for 'assert'
-	if (!assertion) { cout << endl << report << endl; } // if an assert will trigger, print BEFORE
-	assert(assertion); // crash if necessary
+void assert_report( bool assertion , string report ) { // Reporting wrapper for 'assert'
+	if ( !assertion ) { cout << endl << report << endl; } // if an assert will trigger, print BEFORE
+	assert( assertion ); // crash if necessary
 }
 
 void sep_dbg(){ cout << "==================== Debug ====================" << endl; } // Print a separator for debug information
@@ -47,7 +47,7 @@ bool file_exists( const string& fName ){ // Return true if the file exists , oth
 std::vector<string> readlines( string path ){ // Return all the lines of text file as a string vector
 	std::vector<string> rtnVec;
 	if( file_exists( path ) ){
-		std::ifstream fin( path ); // Open the list file for reading
+		ifstream fin( path ); // Open the list file for reading
 		string line; // String to store each line
 		while ( std::getline( fin , line ) ){ // While we are able to fetch a line
 			rtnVec.push_back( line ); // Add the file to the list to read
@@ -62,7 +62,7 @@ std::vector<string> readlines( string path ){ // Return all the lines of text fi
 // == String Tools ==
 
 void remove_all( string& rawStr , char keyChar ){ // Destructively remove all instances of 'keyChar' from 'rawStr'
-	std::string::size_type i = 0; // http://stackoverflow.com/a/1488798/7186022
+	string::size_type i = 0; // http://stackoverflow.com/a/1488798/7186022
 	while ( i < rawStr.length() ){ // While the end of the string has not been reached
 		i = rawStr.find( keyChar , i ); // Assign the index to the next instance of 'keyChar'
 		if ( i == string::npos ){ break; } // If we reached the end of the string , exit
