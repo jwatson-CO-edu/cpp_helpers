@@ -55,7 +55,7 @@ Template Version: 2017-09-23
 
 // === main ================================================================================================================================
 
-int main(){
+int main( int argc , char** argv ){ // Main takes the terminal command and flags that called it as arguments
 	
 	srand( time( 0 ) ); // Random seed based on the current clock time
 	sep( "I EXIST!" ); // Silly output test
