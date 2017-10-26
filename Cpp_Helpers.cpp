@@ -24,18 +24,24 @@ void sep( string title , size_t width , char dingbat ){
 
 void newline(){ cout << endl; } // print a new line
 
-// == End Debug ==
+// __ End Debug __
+
 
 // == Math Tools ==
 
 float rand_float(){ return (float)  rand() / (float)RAND_MAX; }
+
 double rand_dbbl(){ return (double) rand() / (double)RAND_MAX; }
+
 int randrange( int end ){ return (int)( rand() % end ); }
 // NOTE: 'randrange' functions do not actually check if range bounds are in the proper order
+
 int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) ); }
+
 double randrange( double lo , double hi ){ return lo + (double) rand() * ( hi - lo ); }
 
-// == End Math ==
+// __ End Math __
+
 
 // == File Tools ==
 
@@ -57,7 +63,8 @@ std::vector<string> readlines( string path ){ // Return all the lines of text fi
 	return rtnVec;
 }
 
-// == End File ==
+// __ End File __
+
 
 // == String Tools ==
 
@@ -82,4 +89,17 @@ string strip_after_dot( string fName ){ // Return a copy of 'fName' with the fir
 	return rtnStr; // Return the transformed copy of the string
 }
 
-// == End String ==
+// __ End String __
+
+
+// === Functors ===
+
+// == class Incrementer ==
+
+Incrementer::Incrementer( llin start ){ count = start; } // Create an incrementer with a starting number
+
+llin Incrementer::operator()(){  count++;  return count;  } // Increment the counter and return it
+
+// __ End Incrementer __
+
+// ___ End Functors ___
