@@ -98,7 +98,7 @@ string strip_after_dot( string fName ){ // Return a copy of 'fName' with the fir
 
 Incrementer::Incrementer( llin start ){ count = start; } // Create an incrementer with a starting number
 
-llin Incrementer::operator()(){  count++;  return count;  } // Increment the counter and return it
+llin Incrementer::operator()(){ llin temp = count;  count++;  return temp;  } // Increment the counter and return it
 
 // __ End Incrementer __
 

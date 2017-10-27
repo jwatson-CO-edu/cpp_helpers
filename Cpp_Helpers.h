@@ -66,7 +66,7 @@ void sep_dbg(); // Print a separator for debug information
 
 void sep( string title = "" , size_t width = 6 , char dingbat = '=' ); // Print a separating title card for debug 
 
-void newline();// print a new line
+void newline(); //  print a new line
 
 // __ End Debug __
 
@@ -201,4 +201,4 @@ struct myclass {
   bool operator() (int i,int j) { return (i<j);}
 } myobject; 
 
-  == End Parts ==  */
+  __ End Parts __  */
