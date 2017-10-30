@@ -43,6 +43,8 @@ using std::ostream; // ------------ Output streams
 using std::string; // ------------- strings!           // Requires C++11
 using std::to_string; // ---------- string conversion  // Requires C++11
 using std::min; // ---------------- 'min' function
+using std::isnan; // -------------- NaN Test
+using std::abs; // ---------------- Absolute value
 
 // ~ Type Aliases ~ // Use this for long type names and names that are likley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
@@ -136,10 +138,16 @@ std::vector<T> vec_range( T lo , T hi ){
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 T min_num_in_vec( std::vector<T> searchVec ){
-	T      least   = std::numeric_limits<T>::infinity();
+	//~ T      least   = std::numeric_limits<T>::infinity(); // THIS IS RETURNING ZERO
+	T      least   = std::numeric_limits<T>::max(); // Get the largest representable number
 	size_t i       = 0                , 
 	       numElem = searchVec.size() ;
-	for( i = 0 ; i < numElem ; i++ ){ least = min( searchVec[i] , least ); }
+	//~ cout << "DEBUG: Starting with infinity: " << least << endl;
+	for( i = 0 ; i < numElem ; i++ ){ 
+		least = min( searchVec[i] , least ); 
+		//~ cout << searchVec[i] << " , ";
+	} 
+	//~ cout << endl;
 	return least;
 }
 
