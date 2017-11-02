@@ -87,6 +87,9 @@ template<typename T> // NOTE: Templated functions must have their definition in 
 
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
 
+usll tri_num( usll n );
+size_t tri_num( size_t n );
+
 // __ End Math __
 
 
