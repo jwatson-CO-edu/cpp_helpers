@@ -40,7 +40,7 @@ int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) )
 
 double randrange( double lo , double hi ){ return lo + (double) rand() * ( hi - lo ); }
 
-usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number
+usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // --- Return the nth triangular number
 size_t tri_num( size_t n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number
 
 // __ End Math __
