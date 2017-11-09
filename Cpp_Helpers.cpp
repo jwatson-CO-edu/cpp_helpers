@@ -43,6 +43,8 @@ double randrange( double lo , double hi ){ return lo + (double) rand() * ( hi - 
 usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // --- Return the nth triangular number
 size_t tri_num( size_t n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number
 
+double round_zero( double num ){ if( abs( num ) < EPSILON ){ return 0.0d; }else{ return num; } }
+
 // __ End Math __
 
 

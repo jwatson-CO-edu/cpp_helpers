@@ -90,6 +90,8 @@ bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
 usll tri_num( usll n );
 size_t tri_num( size_t n );
 
+double round_zero( double num );
+
 // __ End Math __
 
 
