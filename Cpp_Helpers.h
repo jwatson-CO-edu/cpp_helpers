@@ -12,6 +12,7 @@ Template Version: 2017-05-26
 #define CPPHELPERS_H
 
 #include <string> // --- string manipulation
+#include <cstdio> // --- printf
 #include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
 #include <limits> // --- Infinity
 #include <stdlib.h> // - srand, rand 
@@ -45,6 +46,7 @@ using std::to_string; // ---------- string conversion  // Requires C++11
 using std::min; // ---------------- 'min' function
 using std::isnan; // -------------- NaN Test
 using std::abs; // ---------------- Absolute value
+using std::printf; // ------------- Our fave printing function from C
 
 // ~ Type Aliases ~ // Use this for long type names and names that are likley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
@@ -91,6 +93,9 @@ usll tri_num( usll n );
 size_t tri_num( size_t n );
 
 double round_zero( double num );
+
+template <typename T> 
+int sign( T val ) { return ( T(0) < val ) - ( val < T(0) ); } // Return the sign if the number: -1 for val<0 , 0 for val==0 , 1 for val>0
 
 // __ End Math __
 
