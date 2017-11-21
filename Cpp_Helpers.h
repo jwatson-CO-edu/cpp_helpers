@@ -24,12 +24,13 @@ Template Version: 2017-05-26
 #include <vector> // --- standard vector datatype , the friendly array } Data Structures
 #include <list> // ----- standard list datatype                       /
 #include <map> // ------ dictionaries                                /
-#include <algorithm> //- Searching structures ______________________/
+#include <set> // ------ sets                                       /
+#include <algorithm> //- Searching structures _____________________/
 
-#include <iostream> // - standard input and output, istream } Input / Output
-#include <fstream> // -- Reading files                     /
-#include <sstream> // -- Text streams                     /
-#include <sys/stat.h> // File status ____________________/
+#include <iostream> // - standard input and output , istream } Input / Output
+#include <fstream> // -- Reading files                      /
+#include <sstream> // -- Text streams                      /
+#include <sys/stat.h> // File status _____________________/
 
 
 // == Shortcuts and Aliases ==
@@ -176,6 +177,14 @@ template<typename T> // NOTE: Templated functions must have their definition in 
 bool is_arg_in_list( T arg , std::list<T> lst ){
 	// Return true if 'arg' is in 'lst' , false otherwise
 	return find( lst.begin() , lst.end() , arg ) != lst.end();
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+bool is_arg_in_set( T arg , std::set<T> st ){
+	// Return true if 'arg' is in 'st' , false otherwise
+	// URL , C++ cannot recognize a templated typename
+	typename std::set<T>::iterator it = st.find( arg );
+	return it != st.end();
 }
 
 // __ End Container __
