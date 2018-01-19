@@ -33,7 +33,9 @@ float rand_float(){ return (float)  rand() / (float)RAND_MAX; }
 
 double rand_dbbl(){ return (double) rand() / (double)RAND_MAX; }
 
-int randrange( int end ){ return (int)( rand() % end ); }
+int    randrange( int end ){    return (int)( rand() % end );    }
+size_t randrange( size_t end ){ return (size_t)( rand() % end ); }
+
 // NOTE: 'randrange' functions do not actually check if range bounds are in the proper order
 
 int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) ); }
@@ -96,6 +98,25 @@ string strip_after_dot( string fName ){ // Return a copy of 'fName' with the fir
 
 // __ End String __
 
+
+// == Container Tools ==
+
+std::vector<bool> bool_false_vector( size_t length ){
+	std::vector<bool> rtnVec;
+	for( size_t i = 0 ; i < length ; i++ ){ rtnVec.push_back( false ); }
+	return rtnVec;
+}
+
+size_t random_false_elem_index( std::vector<bool> vec ){
+	// Return a random index of an element that has value 'false'
+	std::vector<size_t> availableIndices;
+	size_t vecLen = vec.size();
+	// Build a vector of available 'false' indices so that we are guaranteed to make the right choice
+	for( size_t i = 0 ; i < vecLen ; i++ ){ if( vec[i] == false ){ availableIndices.push_back( i ); } }
+	return rand_choice( availableIndices );
+}
+
+// __ End Container __
 
 // === Functors ===
 

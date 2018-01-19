@@ -82,6 +82,8 @@ float rand_float(); // Note that this is not exactly uniformly distributed
 
 int randrange( int end );
 
+size_t randrange( size_t end );
+
 int randrange( int bgn , int end );
 
 double randrange( double lo , double hi );
@@ -185,6 +187,23 @@ bool is_arg_in_set( T arg , std::set<T> st ){
 	// URL , C++ cannot recognize a templated typename
 	typename std::set<T>::iterator it = st.find( arg );
 	return it != st.end();
+}
+
+template<typename T>
+T rand_choice( std::vector<T> searchVec ){ return searchVec[ randrange( searchVec.size() ) ]; }
+
+std::vector<bool> bool_false_vector( size_t length );
+
+size_t random_false_elem_index( std::vector<bool> vec );
+
+template<typename T>
+size_t vec_wrap_index( std::vector<T> vec , llin rawIndex ){
+	size_t vecLen = vec.size();
+	if( rawIndex >= 0 ){
+		return rawIndex % vecLen;
+	} else {
+		
+	}
 }
 
 // __ End Container __
