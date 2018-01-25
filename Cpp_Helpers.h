@@ -89,8 +89,10 @@ int randrange( int bgn , int end );
 double randrange( double lo , double hi );
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
+
+template < typename T , typename U >
+bool eq( T op1 , U op2 ){ return ( abs( (double)op1 - (double)op2 ) ) < EPSILON; }
 
 usll tri_num( usll n );
 size_t tri_num( size_t n );
@@ -99,6 +101,8 @@ double round_zero( double num );
 
 template <typename T> 
 int sign( T val ) { return ( T(0) < val ) - ( val < T(0) ); } // Return the sign if the number: -1 for val<0 , 0 for val==0 , 1 for val>0
+
+
 
 // __ End Math __
 
@@ -196,15 +200,10 @@ std::vector<bool> bool_false_vector( size_t length );
 
 size_t random_false_elem_index( std::vector<bool> vec );
 
-template<typename T>
-size_t vec_wrap_index( std::vector<T> vec , llin rawIndex ){
-	size_t vecLen = vec.size();
-	if( rawIndex >= 0 ){
-		return rawIndex % vecLen;
-	} else {
-		
-	}
-}
+
+
+//  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
+llin indexw( llin len , llin i );
 
 // __ End Container __
 
@@ -247,4 +246,19 @@ struct myclass {
   bool operator() (int i,int j) { return (i<j);}
 } myobject; 
 
-  __ End Parts __  */
+  __ End Parts __________________________________________________________________________________________________________________________ */
+  
+  
+/* == Spare Parts ==========================================================================================================================
+
+template<typename T>
+size_t vec_wrap_index( std::vector<T> vec , llin rawIndex ){
+	size_t vecLen = vec.size();
+	if( rawIndex >= 0 ){
+		return rawIndex % vecLen;
+	} else {
+		
+	}
+}
+
+ __ End Parts ___________________________________________________________________________________________________________________________ */

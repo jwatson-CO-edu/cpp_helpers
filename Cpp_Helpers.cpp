@@ -116,6 +116,18 @@ size_t random_false_elem_index( std::vector<bool> vec ){
 	return rand_choice( availableIndices );
 }
 
+llin indexw( llin len , llin i ){
+    //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
+	llin revDex = 0;
+    if( i >= 0 ){
+        return i % ( len );
+    } else {
+        revDex = abs( i ) % ( len );
+        if( revDex == 0 ){ return 0; }
+        return len - revDex;
+	}
+}
+
 // __ End Container __
 
 // === Functors ===
