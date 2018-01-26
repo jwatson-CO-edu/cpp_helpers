@@ -45,6 +45,7 @@ using std::ostream; // ------------ Output streams
 using std::string; // ------------- strings!           // Requires C++11
 using std::to_string; // ---------- string conversion  // Requires C++11
 using std::min; // ---------------- 'min' function
+using std::max; // ---------------- 'max' function
 using std::isnan; // -------------- NaN Test
 using std::abs; // ---------------- Absolute value
 using std::printf; // ------------- Our fave printing function from C
@@ -155,17 +156,24 @@ std::vector<T> vec_range( T lo , T hi ){
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 T min_num_in_vec( std::vector<T> searchVec ){
-	//~ T      least   = std::numeric_limits<T>::infinity(); // THIS IS RETURNING ZERO
-	T      least   = std::numeric_limits<T>::max(); // Get the largest representable number
+	T      least   = searchVec[0]; 
 	size_t i       = 0                , 
 	       numElem = searchVec.size() ;
-	//~ cout << "DEBUG: Starting with infinity: " << least << endl;
 	for( i = 0 ; i < numElem ; i++ ){ 
 		least = min( searchVec[i] , least ); 
-		//~ cout << searchVec[i] << " , ";
 	} 
-	//~ cout << endl;
 	return least;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+T max_num_in_vec( std::vector<T> searchVec ){
+	T      most    = searchVec[0]; 
+	size_t i       = 0                , 
+	       numElem = searchVec.size() ;
+	for( i = 0 ; i < numElem ; i++ ){ 
+		most = max( searchVec[i] , most ); 
+	} 
+	return most;
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
@@ -200,10 +208,10 @@ std::vector<bool> bool_false_vector( size_t length );
 
 size_t random_false_elem_index( std::vector<bool> vec );
 
-
-
 //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 llin indexw( llin len , llin i );
+
+std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet );
 
 // __ End Container __
 
@@ -244,7 +252,10 @@ std::ostream& operator<<(std::ostream& os, const Gene& vec) {
 // ~~ Function Object ~~
 struct myclass {
   bool operator() (int i,int j) { return (i<j);}
-} myobject; 
+} myobject;
+
+// ~~ Array Initialization ~~ 
+int foo[3][2] = { { 1 , 2 } , { 3 , 4 } , { 5 , 6 } }; // Nested array assignment test
 
   __ End Parts __________________________________________________________________________________________________________________________ */
   

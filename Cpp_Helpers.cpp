@@ -128,6 +128,20 @@ llin indexw( llin len , llin i ){
 	}
 }
 
+std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet ) {
+	size_t count = 0              ,
+		   len   = elemSet.size() ;
+	os << "(set){ ";
+	std::set<int>::iterator it;
+	for( it = elemSet.begin() ; it != elemSet.end() ; ++it ){
+		os << *it;
+		if( count + 1 < len ){ os << ", "; }
+		count++;
+	}
+	os << " }";
+	return os; // You must return a reference to the stream!
+}
+
 // __ End Container __
 
 // === Functors ===
