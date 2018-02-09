@@ -35,7 +35,7 @@ Template Version: 2017-05-26
 
 // == Shortcuts and Aliases ==
 
-// ~ Type Shortcuts ~ // This is only for names that are unlikely to be shadowed
+// ~ Standard Shortcuts ~ // This is only for names that are unlikely to be shadowed
 using std::cout; // --------------- output to terminal
 using std::endl; // --------------- newline
 using std::cin; // ---------------- input from terminal
@@ -50,7 +50,7 @@ using std::isnan; // -------------- NaN Test
 using std::abs; // ---------------- Absolute value
 using std::printf; // ------------- Our fave printing function from C
 
-// ~ Type Aliases ~ // Use this for long type names and names that are likley to be shadowed
+// ~ Type Aliases ~ // Use this for long type names and names that are unlikley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
 using llin = long long int; // ---- big ints              // Requires C++11
 
@@ -212,6 +212,67 @@ size_t random_false_elem_index( std::vector<bool> vec );
 llin indexw( llin len , llin i );
 
 std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet );
+
+template<typename T>
+std::vector<T> vec_copy( std::vector<T>& original ){
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( original[i] );  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy( const std::vector<T>& original ){
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( original[i] );  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<std::vector<T>> vec_vec_copy( std::vector<std::vector<T>>& original ){
+	size_t len_i , len_j;
+	std::vector<std::vector<T>> rtnVecVec;
+	len_i = original.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = original[i].size();
+		std::vector<T> temp;
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			temp.push_back( original[i][j] );
+		}
+		rtnVecVec.push_back( temp );
+	}
+	return rtnVecVec;
+}
+
+template<typename T>
+std::vector<std::vector<T>> vec_vec_copy( const std::vector<std::vector<T>>& original ){
+	size_t len_i , len_j;
+	std::vector<std::vector<T>> rtnVecVec;
+	len_i = original.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = original[i].size();
+		std::vector<T> temp;
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			temp.push_back( original[i][j] );
+		}
+		rtnVecVec.push_back( temp );
+	}
+	return rtnVecVec;
+}
+
+template<typename T>
+T* elem_i_from_list( std::list<T>& searchList , size_t index ){
+	// Access a list like it were a vector
+	typename std::list<T>::iterator it; // URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
+	size_t i     = 0                 ,
+		   len   = searchList.size() ;
+	for( it = searchList.begin() ; it != searchList.end() ; ++it ){
+		if( index == i ){  return &(*it);  }
+		i++;
+	}
+	return nullptr;
+}
 
 // __ End Container __
 
