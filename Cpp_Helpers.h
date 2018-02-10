@@ -60,8 +60,15 @@ double const INFTY_D = std::numeric_limits<double>::infinity();
 
 // __ End Shortcuts __
 
-/* These are very short functions, but putting them in a separate CPP anyway because .H files are text substitution and including in 
-several places (likely) will define the functions multiple times, which will raise errors. */
+
+// === Structs ===
+
+struct IndexSearchResult{ // A container to hold a search result for an index that cannot have a negative value
+	bool   result; // Is the result a valid one?
+	size_t index; //- If so, which is the index we like best?
+};
+
+// ___ End Struct ___
 
 
 // == Debug Tools ==
@@ -188,17 +195,25 @@ std::list<T> lst_range( T lo , T hi ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_list( T arg , std::list<T> lst ){
+bool is_arg_in_list( T arg , std::list<T>& lst ){
 	// Return true if 'arg' is in 'lst' , false otherwise
 	return find( lst.begin() , lst.end() , arg ) != lst.end();
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_set( T arg , std::set<T> st ){
+bool is_arg_in_set( T arg , std::set<T>& st ){
 	// Return true if 'arg' is in 'st' , false otherwise
 	// URL , C++ cannot recognize a templated typename
 	typename std::set<T>::iterator it = st.find( arg );
 	return it != st.end();
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+bool is_arg_in_vector( T arg , std::vector<T>& vec ){
+	// Return true if 'arg' is in 'st' , false otherwise
+	// URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
+	typename std::vector<T>::iterator it = find( vec.begin() , vec.end() , arg );
+	return it != vec.end();
 }
 
 template<typename T>
