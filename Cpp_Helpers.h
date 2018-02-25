@@ -68,7 +68,20 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
+struct SuccessCode{
+	bool   success; // Succeed or Fail?
+	size_t code; // -- Status code
+	string desc; // -- Description of { disposition , failure reason , results , etc }
+};
+
 // ___ End Struct ___
+
+
+// == Struct Helpers ==
+
+IndexSearchResult default_false_result();
+
+// __ End Helpers __
 
 
 // == Debug Tools ==
@@ -109,8 +122,6 @@ double round_zero( double num );
 
 template <typename T> 
 int sign( T val ) { return ( T(0) < val ) - ( val < T(0) ); } // Return the sign if the number: -1 for val<0 , 0 for val==0 , 1 for val>0
-
-
 
 // __ End Math __
 
@@ -214,6 +225,22 @@ bool is_arg_in_vector( T arg , std::vector<T>& vec ){
 	// URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
 	typename std::vector<T>::iterator it = find( vec.begin() , vec.end() , arg );
 	return it != vec.end();
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+IndexSearchResult search_vec_for_arg( std::vector<T>& vec , T arg ){
+	// Search the vector for the specified 'arg' and return the result
+	// NOTE: This function assumes that the '==' comparison operator can be used on the vector items
+	IndexSearchResult result = default_false_result();
+	size_t len = vec.size();
+	for( size_t i = 0 ; i < len ; i++ ){
+		if( arg == vec[i] ){  
+			result.result = true;  
+			result.index  = i;  
+			return result; // Found a match, shortcut return with the result
+		}
+	}
+	return result; // No match found , Return failed result
 }
 
 template<typename T>

@@ -8,6 +8,12 @@ Template Version: 2017-04-13
 
 #include "Cpp_Helpers.h"
 
+// == Struct Helpers ==
+
+IndexSearchResult default_false_result(){  return IndexSearchResult{ false , 0 };  } // Return a failed search result , index 0
+
+// __ End Helpers __
+
 // == Debug Tools ==
 
 void assert_report( bool assertion , string report ) { // Reporting wrapper for 'assert'
