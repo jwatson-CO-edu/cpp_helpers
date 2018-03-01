@@ -272,6 +272,24 @@ std::vector<T> vec_copy( const std::vector<T>& original ){
 }
 
 template<typename T>
+std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdout ){
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( original[i] != holdout ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout ){
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( original[i] != holdout ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
 std::vector<std::vector<T>> vec_vec_copy( std::vector<std::vector<T>>& original ){
 	size_t len_i , len_j;
 	std::vector<std::vector<T>> rtnVecVec;
