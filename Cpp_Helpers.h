@@ -49,6 +49,7 @@ using std::to_string; // ---------- string conversion  // Requires C++11
 using std::min; // ---------------- 'min' function
 using std::max; // ---------------- 'max' function
 using std::isnan; // -------------- NaN Test
+using std::isinf; // -------------- Infinity Test
 using std::abs; // ---------------- Absolute value
 using std::printf; // ------------- Our fave printing function from C
 
