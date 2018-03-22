@@ -71,6 +71,11 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
+struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
+	bool /* -------- */ result; // Is the result a valid one?
+	std::vector<size_t> indices; //- If so, which is the index we like best?
+};
+
 struct SuccessCode{
 	bool   success; // Succeed or Fail?
 	size_t code; // -- Status code
@@ -379,6 +384,7 @@ std::vector<std::vector<T>> vec_vec_copy( const std::vector<std::vector<T>>& ori
 template<typename T>
 T* elem_i_from_list( std::list<T>& searchList , size_t index ){
 	// Access a list like it were a vector
+	// NOTE: Retuning a pointer so that the same type can be used as both a return value and an error code
 	typename std::list<T>::iterator it; // URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
 	size_t i     = 0                 ,
 		   len   = searchList.size() ;
@@ -386,7 +392,47 @@ T* elem_i_from_list( std::list<T>& searchList , size_t index ){
 		if( index == i ){  return &(*it);  }
 		i++;
 	}
-	return nullptr;
+	return nullptr; // ERROR , No such index!
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+IndexMultiResult first_in_common_btn_lists_index( std::list<T>& lst1 , std::list<T>& lst2 ){
+	size_t i = 0 ,
+		   j = 0 ;
+	typename std::list<T>::iterator it_i , // URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
+									it_j ;  
+	IndexMultiResult result;
+	result.result = false;
+	for( it_i = lst1.begin() ; it_i != lst1.end() ; ++it_i ){
+		for( it_j = lst2.begin() ; it_j != lst2.end() ; ++it_j ){
+			result.result = *it_i == *it_j;
+			if( result.result ){  break;  }
+			j++;
+		}
+		if( result.result ){  break;  }
+		i++;
+	}
+	result.indices.push_back( i );  result.indices.push_back( j );  // These indices point to the commonality, or the last indices
+	return result;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+IndexMultiResult first_in_common_btn_vec_index( std::vector<T>& lst1 , std::vector<T>& lst2 ){
+	size_t i     = 0           ,
+		   j     = 0           ,
+		   len_i = lst1.size() , 
+		   len_j = lst2.size() ;
+	
+	IndexMultiResult result;
+	for( i = 0 ; i < len_i ; i++ ){
+		for( j = 0 ; j < len_j ; j++ ){
+			result.result = lst1[i] == lst2[j];
+			if( result.result ){  break;  }
+		}
+		if( result.result ){  break;  }
+	}
+	result.indices.push_back( i );  result.indices.push_back( j );  // These indices point to the commonality, or the last indices
+	return result;
 }
 
 // __ End Container __
