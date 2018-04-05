@@ -86,7 +86,7 @@ void remove_all( string& rawStr , char keyChar ){ // Destructively remove all in
 	while ( i < rawStr.length() ){ // While the end of the string has not been reached
 		i = rawStr.find( keyChar , i ); // Assign the index to the next instance of 'keyChar'
 		if ( i == string::npos ){ break; } // If we reached the end of the string , exit
-		rawStr.erase( i ); // If an instance of the char has been found , erase it ( 'erase' resizes 'remove' doe not )
+		rawStr.erase( i ); // If an instance of the char has been found , erase it ( 'erase' resizes , 'remove' does not )
 	} // If we are outside the loop , we have reached the end of the string
 }
 
@@ -100,6 +100,18 @@ string strip_after_dot( string fName ){ // Return a copy of 'fName' with the fir
 		index++; 
 	} 
 	return rtnStr; // Return the transformed copy of the string
+}
+
+string prepad(  string original , size_t totLen , char padChar ){
+	size_t origLen = original.size();
+	if( origLen < totLen ){  return string( totLen - origLen , padChar ) + original;  }
+	else{  return original;  }
+}
+
+string postpad( string original , size_t totLen , char padChar ){
+	size_t origLen = original.size();
+	if( origLen < totLen ){  return original + string( totLen - origLen , padChar );  }
+	else{  return original;  }
 }
 
 // __ End String __

@@ -71,6 +71,11 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
+struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
+	size_t index; // - Which is the index we like best?
+	double measure; // How much do we like it?
+};
+
 struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
 	bool /* -------- */ result; // Is the result a valid one?
 	std::vector<size_t> indices; //- If so, which is the index we like best?
@@ -108,6 +113,8 @@ void newline(); //  print a new line
 // == Math Tools ==
 
 float rand_float(); // Note that this is not exactly uniformly distributed
+
+double rand_dbbl();
 
 int randrange( int end );
 
@@ -151,6 +158,9 @@ void remove_all( string& rawStr , char keyChar ); // Destructively remove all in
 void strip_newlines( string& rawStr );
 
 string strip_after_dot( string fName ); // Return a copy of 'fName' with the first period and all following characters removed
+
+string prepad(  string original , size_t totLen , char padChar = ' ' );
+string postpad( string original , size_t totLen , char padChar = ' ' );
 
 // __ End String __
 
@@ -347,6 +357,82 @@ std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout
 	std::vector<T> rtnVec;
 	for( size_t i = 0 ; i < len ; i++ ){  if( original[i] != holdout ){  rtnVec.push_back( original[i] );  }  }
 	return rtnVec;
+}
+
+template<typename T>
+std::vector< size_t > vec_vec_len( std::vector<std::vector<T>>& vecVec ){
+	std::vector<size_t> rtnVec;
+	size_t len = vecVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( vecVec[i].size() );  }
+	return rtnVec;
+}
+
+template<typename T>
+size_t vec_vec_longest_rep( std::vector<std::vector<T>>& vecVec ){
+	// Return the length of the longest string representation of an element of a 2D std::vector
+	size_t longest = 0;
+	size_t len_i , len_j;
+	string tempRep;
+	len_i = vecVec.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = vecVec[i].size();
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			tempRep = to_string( vecVec[i][j] );
+			longest = max( tempRep.size() , longest );
+		}
+	}
+	return longest;
+}
+
+template<typename T>
+size_t vec_vec_longest_rep( const std::vector<std::vector<T>>& vecVec ){
+	// Return the length of the longest string representation of an element of a 2D std::vector
+	size_t longest = 0;
+	size_t len_i , len_j;
+	string tempRep;
+	len_i = vecVec.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = vecVec[i].size();
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			tempRep = to_string( vecVec[i][j] );
+			longest = max( tempRep.size() , longest );
+		}
+	}
+	return longest;
+}
+
+template<typename T>
+void print_vec_vec( std::vector<std::vector<T>>& vecVec , size_t padLen = 1 ){
+	// Return the length of the longest string representation of an element of a 2D std::vector
+	size_t longest = vec_vec_longest_rep( vecVec );
+	size_t len_i , len_j;
+	string tempRep;
+	len_i = vecVec.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = vecVec[i].size();
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			tempRep = prepad( to_string( vecVec[i][j] ) , longest );
+			cout << tempRep << string( padLen , ' ' );
+		}
+		cout << endl;
+	}
+}
+
+template<typename T>
+void print_vec_vec( const std::vector<std::vector<T>>& vecVec , size_t padLen = 1 ){
+	// Return the length of the longest string representation of an element of a 2D std::vector
+	size_t longest = vec_vec_longest_rep( vecVec );
+	size_t len_i , len_j;
+	string tempRep;
+	len_i = vecVec.size();
+	for( size_t i = 0 ; i < len_i ; i++ ){
+		len_j = vecVec[i].size();
+		for( size_t j = 0 ; j < len_j ; j++ ){
+			tempRep = prepad( to_string( vecVec[i][j] ) , longest );
+			cout << tempRep << string( padLen , ' ' );
+		}
+		cout << endl;
+	}
 }
 
 template<typename T>
