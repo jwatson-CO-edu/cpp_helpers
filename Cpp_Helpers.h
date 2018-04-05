@@ -468,6 +468,23 @@ std::vector<std::vector<T>> vec_vec_copy( const std::vector<std::vector<T>>& ori
 }
 
 template<typename T>
+void vec_vec_bottom_clear( std::vector<std::vector<T>>& vecVec ){
+	// Clear the bottom-level vectors
+	size_t len = vecVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  vecVec[i].clear();  }
+}
+
+template<typename T>
+void vec_vec_top_populate( std::vector<std::vector<T>>& vecVec , size_t N ){
+	// Populate the top level with empty vectors
+	vecVec.clear();
+	for( size_t i = 0 ; i < N ; i++ ){
+		std::vector<T> temp;
+		vecVec.push_back( temp );
+	}
+}
+
+template<typename T>
 T* elem_i_from_list( std::list<T>& searchList , size_t index ){
 	// Access a list like it were a vector
 	// NOTE: Retuning a pointer so that the same type can be used as both a return value and an error code
