@@ -76,6 +76,11 @@ struct IndexDbblResult{ // A container to hold a search result for an index that
 	double measure; // How much do we like it?
 };
 
+struct IDDbblResult{ // A container to hold a search result for an index that cannot have a negative value
+	llin   ID; // ---- Which is the index we like best?
+	double measure; // How much do we like it?
+};
+
 struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
 	bool /* -------- */ result; // Is the result a valid one?
 	std::vector<size_t> indices; //- If so, which is the index we like best?
@@ -210,6 +215,36 @@ T max_num_in_vec( std::vector<T> searchVec ){
 		most = max( searchVec[i] , most ); 
 	} 
 	return most;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+size_t min_index_in_vec( std::vector<T> searchVec ){
+	T      least   = searchVec[0]; 
+	size_t minDex  = 0                ,
+		   i       = 0                , 
+	       numElem = searchVec.size() ;
+	for( i = 0 ; i < numElem ; i++ ){ 
+		if( searchVec[i] < least ){
+			least  = searchVec[i];
+			minDex = i;
+		}
+	} 
+	return minDex;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+size_t max_index_in_vec( std::vector<T> searchVec ){
+	T      most    = searchVec[0]; 
+	size_t maxDex  = 0                ,
+		   i       = 0                , 
+	       numElem = searchVec.size() ;
+	for( i = 0 ; i < numElem ; i++ ){ 
+		if( searchVec[i] > most ){
+			most   = searchVec[i];
+			maxDex = i;
+		}
+	} 
+	return maxDex;
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
