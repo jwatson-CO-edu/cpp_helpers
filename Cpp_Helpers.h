@@ -386,6 +386,15 @@ std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdout ){
 }
 
 template<typename T>
+std::vector<T> vec_copy_without_elem( std::vector<T>& original , std::vector<T>& holdout ){
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_vector( original[i] , holdout ) ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
 std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout ){
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
@@ -468,6 +477,14 @@ void print_vec_vec( const std::vector<std::vector<T>>& vecVec , size_t padLen = 
 		}
 		cout << endl;
 	}
+}
+
+template<typename T>
+size_t vec_vec_any_empty( std::vector<std::vector<T>>& vecVec ){
+	// Return true if any of the sub-vectors are empty, otherwise return false
+	size_t len = vecVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( vecVec[i].size() == 0 ){  return true;  }  }
+	return false;
 }
 
 template<typename T>
