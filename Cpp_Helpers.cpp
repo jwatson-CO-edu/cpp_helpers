@@ -125,6 +125,16 @@ std::vector<bool> bool_false_vector( size_t length ){
 	return rtnVec;
 }
 
+std::vector<std::vector<bool>> bool_false_vec_vec( size_t length ){
+	std::vector<std::vector<bool>> rtnVecVec;
+	for( size_t i = 0 ; i < length ; i++ ){ 
+		std::vector<bool> temp;
+		for( size_t j = 0 ; j < length ; j++ ){  temp.push_back( false );  }
+		rtnVecVec.push_back( temp ); 
+	}
+	return rtnVecVec;
+}
+
 size_t random_false_elem_index( std::vector<bool> vec ){
 	// Return a random index of an element that has value 'false'
 	std::vector<size_t> availableIndices;
@@ -132,6 +142,13 @@ size_t random_false_elem_index( std::vector<bool> vec ){
 	// Build a vector of available 'false' indices so that we are guaranteed to make the right choice
 	for( size_t i = 0 ; i < vecLen ; i++ ){ if( vec[i] == false ){ availableIndices.push_back( i ); } }
 	return rand_choice( availableIndices );
+}
+
+bool all_elem_true( std::vector<bool>& bulVec ){ 
+	// Return true if all elements true , otherwise return false
+	size_t len = bulVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( !bulVec[i] ){  return false;  }  }
+	return true;
 }
 
 llin indexw( llin len , llin i ){

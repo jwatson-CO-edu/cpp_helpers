@@ -353,7 +353,11 @@ T rand_choice( std::vector<T> searchVec ){ return searchVec[ randrange( searchVe
 
 std::vector<bool> bool_false_vector( size_t length );
 
+std::vector<std::vector<bool>> bool_false_vec_vec( size_t length );
+
 size_t random_false_elem_index( std::vector<bool> vec );
+
+bool all_elem_true( std::vector<bool>& bulVec ); // Return true if all elements true , otherwise return false
 
 //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 llin indexw( llin len , llin i );
@@ -534,6 +538,19 @@ void vec_vec_top_populate( std::vector<std::vector<T>>& vecVec , size_t N ){
 		std::vector<T> temp;
 		vecVec.push_back( temp );
 	}
+}
+
+template<typename T>
+std::vector<std::vector<T>> row_vec_to_col_vec_vec( std::vector<T>& original ){
+	// Convert a 1D standard vector into a standard 2D nested vector in which each vector has one element of the 'original'
+	size_t len = original.size();
+	std::vector<std::vector<T>> rtnVecVec;
+	for( size_t i = 0 ; i < len ; i++ ){
+		std::vector<T> temp;
+		temp.push_back( original[i] );
+		rtnVecVec.push_back( temp );
+	}
+	return rtnVecVec;
 }
 
 template<typename T>
