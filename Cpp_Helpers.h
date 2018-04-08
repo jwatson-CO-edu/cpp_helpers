@@ -185,6 +185,12 @@ ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<'
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+void extend_vec_with( std::vector<T>& original , std::vector<T>& extension ){
+	size_t xtLen = extension.size();
+	for( size_t i = 0 ; i < xtLen ; i++ ){  original.push_back( extension[i] );  } // Using this so that you can extend vector with itself
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 std::vector<T> vec_range( T lo , T hi ){
 	T i = 0;
 	std::vector<T> rtnVec;
