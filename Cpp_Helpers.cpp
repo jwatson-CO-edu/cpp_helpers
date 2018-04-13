@@ -177,6 +177,12 @@ std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet ) {
 	return os; // You must return a reference to the stream!
 }
 
+std::vector<size_t> vec_index_zeros( size_t len ){
+	std::vector<size_t> rntVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rntVec.push_back( 0 );  }
+	return rntVec;
+}
+
 // __ End Container __
 
 // === Functors ===

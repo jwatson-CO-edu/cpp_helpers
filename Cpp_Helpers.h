@@ -184,10 +184,27 @@ ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<'
 	return os; // You must return a reference to the stream!
 }
 
+template<typename T>
+std::vector<T> vec_copy( std::vector<T>& original ){
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( original[i] );  }
+	return rtnVec;
+}
+
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 void extend_vec_with( std::vector<T>& original , std::vector<T>& extension ){
 	size_t xtLen = extension.size();
 	for( size_t i = 0 ; i < xtLen ; i++ ){  original.push_back( extension[i] );  } // Using this so that you can extend vector with itself
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+void extend_vec_vec_with( std::vector<std::vector<T>>& original , std::vector<std::vector<T>>& extension ){
+	size_t xtLen = extension.size();
+	for( size_t i = 0 ; i < xtLen ; i++ ){  
+		std::vector<T> temp = vec_copy( extension[i] );
+		original.push_back( temp );  
+	} // Using this so that you can extend vector with itself
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
@@ -200,6 +217,8 @@ std::vector<T> vec_range( T lo , T hi ){
 		for( i = hi ; i >= lo ; i-- ){ rtnVec.push_back( i ); }
 	return rtnVec;
 }
+
+std::vector<size_t> vec_index_zeros( size_t len );
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 T min_num_in_vec( std::vector<T> searchVec ){
@@ -371,14 +390,6 @@ llin indexw( llin len , llin i );
 std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet );
 
 template<typename T>
-std::vector<T> vec_copy( std::vector<T>& original ){
-	size_t len = original.size();
-	std::vector<T> rtnVec;
-	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( original[i] );  }
-	return rtnVec;
-}
-
-template<typename T>
 std::vector<T> vec_copy( const std::vector<T>& original ){
 	size_t len = original.size();
 	std::vector<T> rtnVec;
@@ -495,6 +506,21 @@ size_t vec_vec_any_empty( std::vector<std::vector<T>>& vecVec ){
 	size_t len = vecVec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( vecVec[i].size() == 0 ){  return true;  }  }
 	return false;
+}
+
+template<typename T>
+std::vector<std::vector<T>> vec_vec_copy_nonempty( std::vector<std::vector<T>>& vecVec ){
+	// Return a copy of 'vecVec' that contains only the non-empty sub-vectors
+	size_t len    = vecVec.size() , 
+		   subLen = 0             ;
+	std::vector<std::vector<T>> rtnVecVec;
+	for( size_t i = 0 ; i < len ; i++ ){  
+		if( vecVec[i].size() > 0 ){
+			std::vector<T> temp = vec_copy( vecVec[i] );
+			rtnVecVec.push_back( temp );
+		}  
+	}
+	return rtnVecVec;
 }
 
 template<typename T>
