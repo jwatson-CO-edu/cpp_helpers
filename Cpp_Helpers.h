@@ -17,6 +17,7 @@ Template Version: 2017-05-26
 #include <limits> // --- Infinity
 #include <stdlib.h> // - srand, rand 
 #include <time.h> // --- time , for getting sys time and seeding random numbers
+#include <ctime> // ---- time , for date formatting
 #include <limits> // --- number limits of data types, limit on 'cin.ignore'
 #include <cassert> // -- input/condition verification
 //#define NDEBUG // ---- uncomment to disable assert()
@@ -30,7 +31,7 @@ Template Version: 2017-05-26
 #include <utility> // -- Pair , pair get ________________________/
 
 #include <iostream> // - standard input and output , istream } Input / Output
-#include <fstream> // -- Reading files                      /
+#include <fstream> // -- File I/O                           /
 #include <sstream> // -- Text streams                      /
 #include <sys/stat.h> // File status _____________________/
 
@@ -44,6 +45,7 @@ using std::cin; // ---------------- input from terminal
 using std::ifstream; // ----------- File Input streams
 using std::ofstream; // ----------- File Output streams
 using std::ostream; // ------------ Output streams
+using std::stringstream; // ------- String streams
 using std::string; // ------------- strings!           // Requires C++11
 using std::to_string; // ---------- string conversion  // Requires C++11
 using std::min; // ---------------- 'min' function
@@ -151,6 +153,8 @@ int sign( T val ) { return ( T(0) < val ) - ( val < T(0) ); } // Return the sign
 bool file_exists( const string& fName );  // Return true if the file exists , otherwise return false
 
 std::vector<string> readlines( string path ); // Return all the lines of text file as a string vector
+
+string timestamp();
 
 // __ End File __
 

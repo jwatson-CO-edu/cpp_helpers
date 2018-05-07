@@ -76,6 +76,17 @@ std::vector<string> readlines( string path ){ // Return all the lines of text fi
 	return rtnVec;
 }
 
+string timestamp(){
+	// Return a timestamp suitable for filenames
+	// URL: http://www.cplusplus.com/forum/beginner/32329/#msg174653
+	time_t t = time(NULL);
+	tm* timePtr = localtime(&t);
+	
+	return to_string( 1900 + timePtr->tm_year ) + "-" + prepad( to_string( timePtr->tm_mon ) , 2 , '0' ) + "-"
+		 + prepad( to_string( timePtr->tm_mday ) , 2 , '0' ) + "_" + prepad( to_string( timePtr->tm_hour ) , 2 , '0' )
+		 + "-" + prepad( to_string( timePtr->tm_min ) , 2 , '0' ) + "-" + prepad( to_string( timePtr->tm_sec ) , 2 , '0' );
+}
+
 // __ End File __
 
 
