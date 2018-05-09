@@ -11,6 +11,10 @@ Template Version: 2017-05-26
 #ifndef CPPHELPERS_H
 #define CPPHELPERS_H
 
+#if defined(unix) || defined(__unix__) || defined(__unix)
+	#define IS_LINUX
+#endif
+
 #include <string> // --- string manipulation
 #include <cstdio> // --- printf
 #include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
@@ -19,6 +23,7 @@ Template Version: 2017-05-26
 #include <time.h> // --- time , for getting sys time and seeding random numbers
 #include <ctime> // ---- time , for date formatting
 #include <limits> // --- number limits of data types, limit on 'cin.ignore'
+#include <ctype.h> // -- type tests
 #include <cassert> // -- input/condition verification
 //#define NDEBUG // ---- uncomment to disable assert()
 
@@ -35,6 +40,10 @@ Template Version: 2017-05-26
 #include <sstream> // -- Text streams                      /
 #include <sys/stat.h> // File status _____________________/
 
+// Linux-Only Libraries
+#ifdef IS_LINUX
+#include <dirent.h> // Get directory info
+#endif
 
 // == Shortcuts and Aliases ==
 
@@ -156,6 +165,16 @@ std::vector<string> readlines( string path ); // Return all the lines of text fi
 
 string timestamp();
 
+// = Linux File Tools =
+
+#ifdef IS_LINUX
+
+std::vector<string> list_dir( string dirStr ); // Return a string vector that contains all the entries in the directory
+
+#endif
+
+// _ End Linux _
+
 // __ End File __
 
 
@@ -170,6 +189,12 @@ string strip_after_dot( string fName ); // Return a copy of 'fName' with the fir
 
 string prepad(  string original , size_t totLen , char padChar = ' ' );
 string postpad( string original , size_t totLen , char padChar = ' ' );
+
+bool str_has_sub( string bigStr , string subStr ); // Return true if 'bigStr' contains 'subStr' , Otherwise return false
+
+bool isnewline( char queryChar ); // Return true if the char is a newline , Otherwise return false
+
+std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator ); // Return a vector of doubles between 'separator'
 
 // __ End String __
 

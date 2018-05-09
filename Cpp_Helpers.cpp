@@ -87,6 +87,25 @@ string timestamp(){
 		 + "-" + prepad( to_string( timePtr->tm_min ) , 2 , '0' ) + "-" + prepad( to_string( timePtr->tm_sec ) , 2 , '0' );
 }
 
+// = Linux File Tools =
+
+#ifdef IS_LINUX
+
+std::vector<string> list_dir( string dirStr ){ 
+	// Return a string vector that contains all the entries in the directory
+	// URL , Iterate over files: https://stackoverflow.com/a/612112
+	std::vector<string> rtnEntries;
+	DIR* dirp = opendir( dirStr.c_str() );
+	dirent* dp = nullptr;
+	while ( ( dp = readdir(dirp) ) != NULL ){  rtnEntries.push_back( string( dp->d_name ) );  }
+	(void)closedir( dirp );
+	return rtnEntries;
+}
+
+#endif
+
+// _ End Linux _
+
 // __ End File __
 
 
@@ -123,6 +142,46 @@ string postpad( string original , size_t totLen , char padChar ){
 	size_t origLen = original.size();
 	if( origLen < totLen ){  return original + string( totLen - origLen , padChar );  }
 	else{  return original;  }
+}
+
+// Return true if 'bigStr' contains 'subStr' , Otherwise return false
+bool str_has_sub( string bigStr , string subStr ){  return bigStr.find( subStr ) != string::npos;  }
+
+// Return true if the char is a newline , Otherwise return false
+bool isnewline( char queryChar ){  return ( queryChar == '\r' ) || ( queryChar == '\n' );  }
+
+std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator ){ 
+	// Return a vector of doubles between 'separator'
+	size_t len = rawStr.length();
+	//~ tokens = [] # 
+	std::vector<double> tokens; // list of tokens to return
+    //~ currToken = '' # 
+    string currToken = ""; // the current token, built a character at a time
+    char currChr;
+    //~ for char in rawStr: # for each character of the input string
+    for( size_t i = 0 ; i < len ; i++ ){
+		currChr = rawStr[i];
+        //~ if not char.isspace(): # 
+        if( !isspace( currChr ) && !isnewline( currChr ) ){ // if the current char is not whitespace, process
+            //~ if not char == separator: # if the character is not a separator, then
+            if( !( currChr == separator ) ){
+                //~ currToken += char # accumulate the char onto the current token
+                currToken += currChr;
+			}else{ // else the character is a separator, process the previous token
+            //~ else: # 
+                //~ tokens.append( evalFunc( currToken ) ) # 
+                tokens.push_back( atof( currToken.c_str() ) ); // transform token and append to the token list
+                //~ currToken = '' # 
+                currToken = ""; // reset the current token
+			}
+		} //~ # else is whitespace, ignore
+	}
+    //~ if currToken: # If there is data in 'currToken', process it
+    if( currToken.length() > 0 )
+        //~ tokens.append( evalFunc( currToken ) ) # transform token and append to the token list
+        tokens.push_back( atof( currToken.c_str() ) ); // transform token and append to the token list
+    //~ return tokens
+    return tokens;
 }
 
 // __ End String __
