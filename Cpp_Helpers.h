@@ -668,6 +668,17 @@ IndexMultiResult first_in_common_btn_vec_index( std::vector<T>& lst1 , std::vect
 	return result;
 }
 
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+std::vector<T> list_to_vec( std::list<T>& inputList ){
+	// Return a list composed of all of the elements of 'inputList' , In order
+	std::vector<T> rtnVec;
+	typename std::list<T>::iterator it; // URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
+	for( it = inputList.begin() ; it != inputList.end() ; ++it ){
+		rtnVec.push_back( *it );
+	}
+	return rtnVec;
+}
+
 // __ End Container __
 
 
