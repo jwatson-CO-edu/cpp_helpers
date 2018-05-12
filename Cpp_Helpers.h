@@ -679,6 +679,18 @@ std::vector<T> list_to_vec( std::list<T>& inputList ){
 	return rtnVec;
 }
 
+// Empty the queue and discard all the values
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+void erase_queue( std::queue<T>& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+T queue_get_pop( std::queue<T>& Q ){ 
+	// Get the front item, then pop it
+	T temp = Q.front();
+	Q.pop();
+	return temp;
+}
+
 // __ End Container __
 
 
