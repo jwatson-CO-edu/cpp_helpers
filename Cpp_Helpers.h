@@ -82,6 +82,11 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
+struct IDSearchResult{ // A container to hold a search result for an ID that can be negative
+	bool result; // Is the result a valid one?
+	llin ID; // --- If so, which is the index we like best?
+};
+
 struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
 	size_t index; // - Which is the index we like best?
 	double measure; // How much do we like it?
@@ -109,6 +114,7 @@ struct SuccessCode{
 // == Struct Helpers ==
 
 IndexSearchResult default_false_result();
+IDSearchResult    default_ID_search_rs();
 
 // __ End Helpers __
 
@@ -248,6 +254,8 @@ std::vector<T> vec_range( T lo , T hi ){
 }
 
 std::vector<size_t> vec_index_zeros( size_t len );
+
+std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ); // Return a square vector of zeros
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 T min_num_in_vec( std::vector<T> searchVec ){

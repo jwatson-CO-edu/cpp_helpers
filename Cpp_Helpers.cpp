@@ -12,6 +12,8 @@ Template Version: 2017-04-13
 
 IndexSearchResult default_false_result(){  return IndexSearchResult{ false , 0 };  } // Return a failed search result , index 0
 
+IDSearchResult default_ID_search_rs(){  return IDSearchResult{ false , 0 };  } // Return a failed search result , index 0
+
 // __ End Helpers __
 
 // == Debug Tools ==
@@ -251,6 +253,17 @@ std::vector<size_t> vec_index_zeros( size_t len ){
 	std::vector<size_t> rntVec;
 	for( size_t i = 0 ; i < len ; i++ ){  rntVec.push_back( 0 );  }
 	return rntVec;
+}
+
+std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ){
+	// Return a square vector of zeros
+	std::vector<std::vector<double>> rtnVecVec;
+	for( size_t i = 0 ; i < len ; i++ ){
+		std::vector<double> temp;
+		for( size_t j = 0 ; j < len ; j++ ){  temp.push_back( 0 );  }
+		rtnVecVec.push_back( temp );
+	}
+	return rtnVecVec;
 }
 
 // __ End Container __
