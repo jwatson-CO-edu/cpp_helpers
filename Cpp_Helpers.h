@@ -33,7 +33,7 @@ Template Version: 2017-05-26
 #include <set> // ------ sets                                       /
 #include <algorithm> //- Searching structures                      /
 #include <queue> // ---- Priority Queue                           /
-#include <utility> // -- Pair , pair get ________________________/
+#include <utility> // -- Pair , pair get , swap _________________/
 
 #include <iostream> // - standard input and output , istream } Input / Output
 #include <fstream> // -- File I/O                           /
@@ -48,21 +48,23 @@ Template Version: 2017-05-26
 // == Shortcuts and Aliases ==
 
 // ~ Standard Shortcuts ~ // This is only for names that are unlikely to be shadowed
-using std::cout; // --------------- output to terminal
-using std::endl; // --------------- newline
-using std::cin; // ---------------- input from terminal
-using std::ifstream; // ----------- File Input streams
-using std::ofstream; // ----------- File Output streams
-using std::ostream; // ------------ Output streams
-using std::stringstream; // ------- String streams
-using std::string; // ------------- strings!           // Requires C++11
-using std::to_string; // ---------- string conversion  // Requires C++11
-using std::min; // ---------------- 'min' function
-using std::max; // ---------------- 'max' function
-using std::isnan; // -------------- NaN Test
-using std::isinf; // -------------- Infinity Test
-using std::abs; // ---------------- Absolute value
-using std::printf; // ------------- Our fave printing function from C
+using std::cout; // ------- output to terminal
+using std::endl; // ------- newline
+using std::cin; // -------- input from terminal
+using std::ifstream; // --- File Input streams
+using std::ofstream; // --- File Output streams
+using std::ostream; // ---- Output streams
+using std::stringstream; // String streams
+using std::string; // ----- strings!           // Requires C++11
+using std::to_string; // -- string conversion  // Requires C++11
+using std::min; // -------- 'min' function
+using std::max; // -------- 'max' function
+using std::isnan; // ------ NaN Test
+using std::isinf; // ------ Infinity Test
+using std::abs; // -------- Absolute value
+using std::pow; // -------- Exponents
+using std::printf; // ----- Our fave printing function from C
+using std::swap; // ------- Swap 2 values , per CS 100
 
 // ~ Type Aliases ~ // Use this for long type names and names that are unlikley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
@@ -85,6 +87,11 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 struct IDSearchResult{ // A container to hold a search result for an ID that can be negative
 	bool result; // Is the result a valid one?
 	llin ID; // --- If so, which is the index we like best?
+};
+
+struct IDScoreLookup{ // A cheap, sequential "associative array" relating IDs to scores
+	std::vector<llin>   IDvec; // -- Vector of ID numbers
+	std::vector<double> scoreVec; // Scores associated with each ID
 };
 
 struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
@@ -234,6 +241,14 @@ void extend_vec_with( std::vector<T>& original , std::vector<T>& extension ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+std::vector<T> vec_plus_one( std::vector<T>& original , T plusOne ){
+	std::vector<T> rtnVec;
+	rtnVec = vec_copy( original );
+	rtnVec.push_back( plusOne );
+	return rtnVec;
+}	
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 void extend_vec_vec_with( std::vector<std::vector<T>>& original , std::vector<std::vector<T>>& extension ){
 	size_t xtLen = extension.size();
 	for( size_t i = 0 ; i < xtLen ; i++ ){  
@@ -254,6 +269,8 @@ std::vector<T> vec_range( T lo , T hi ){
 }
 
 std::vector<size_t> vec_index_zeros( size_t len );
+
+std::vector<double> vec_dbbl_zeros( size_t len );
 
 std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ); // Return a square vector of zeros
 
@@ -687,6 +704,22 @@ std::vector<T> list_to_vec( std::list<T>& inputList ){
 	return rtnVec;
 }
 
+template<typename T>
+std::vector<T> linspace( T a , T b , size_t N ){
+	// Original by Lorenzo Riano , URL: https://gist.github.com/lorenzoriano/5414671
+	// NOTE: If N = 1 , A vector with only 'a' will be returned
+	// NOTE: If N = 0 , An empty vector is returned
+    T h = ( b - a ) / static_cast<T>( N - 1 );
+    std::vector<T> xs( N );
+    typename std::vector<T>::iterator x;
+    T val;
+    // This loop structure is unusual , will look at later
+    for ( x = xs.begin() , val = a ; x != xs.end() ; ++x , val += h ){  *x = val;  }
+    return xs;
+}
+
+// = Queues =
+
 // Empty the queue and discard all the values
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 void erase_queue( std::queue<T>& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
@@ -698,6 +731,26 @@ T queue_get_pop( std::queue<T>& Q ){
 	Q.pop();
 	return temp;
 }
+
+template<typename T> 
+void enqueue_vec( std::queue<T>& Q , std::vector<T>& additions ){
+	size_t len = additions.size();
+	for( size_t i = 0 ; i < len ; i++ ){  Q.push( additions[i] );  }
+}
+
+// _ End Queue _
+
+// = Maps =
+
+template < typename T1 , typename T2 >
+std::vector<T1> map_keys_vec( std::map< T1 , T2 >& dict ){
+	std::vector<T1>  rtnVec;
+	typename std::map< T1 , T2 >::iterator it;
+	for( it = dict.begin() ; it != dict.end() ; ++it ){  rtnVec.push_back( it->first );  }
+	return rtnVec;
+}
+
+// _ End Maps _
 
 // __ End Container __
 

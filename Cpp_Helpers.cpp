@@ -255,6 +255,12 @@ std::vector<size_t> vec_index_zeros( size_t len ){
 	return rntVec;
 }
 
+std::vector<double> vec_dbbl_zeros( size_t len ){
+	std::vector<double> rntVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rntVec.push_back( 0.0d );  }
+	return rntVec;
+}
+
 std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ){
 	// Return a square vector of zeros
 	std::vector<std::vector<double>> rtnVecVec;
