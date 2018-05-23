@@ -31,7 +31,7 @@ Template Version: 2017-05-26
 #include <list> // ----------- standard list datatype                       /
 #include <map> // ------------ dictionaries                                /
 #include <set> // ------------ sets                                       /
-#include <algorithm> // ------ Searching structures                      /
+#include <algorithm> // ------ Searching structures , sort               /
 #include <queue> // ---------- Priority Queue                           /
 #include <utility> // -------- Pair , pair get , swap                  /
 #include <initializer_list> // Pass array literals to funcs __________/
@@ -64,8 +64,10 @@ using std::isnan; // ------ NaN Test
 using std::isinf; // ------ Infinity Test
 using std::abs; // -------- Absolute value
 using std::pow; // -------- Exponents
+using std::ceil; // ------- Ceiling
 using std::printf; // ----- Our fave printing function from C
 using std::swap; // ------- Swap 2 values , per CS 100
+using std::sort; // ------- Get it sorted
 
 // ~ Type Aliases ~ // Use this for long type names and names that are unlikley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
