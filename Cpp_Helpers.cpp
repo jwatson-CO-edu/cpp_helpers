@@ -223,6 +223,13 @@ bool all_elem_true( std::vector<bool>& bulVec ){
 	return true;
 }
 
+bool any_elem_true( std::vector<bool>& bulVec ){
+	// Return true if any elements true , otherwise return false
+	size_t len = bulVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( bulVec[i] ){  return true;  }  }
+	return false;
+}
+
 llin indexw( llin len , llin i ){
     //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 	llin revDex = 0;

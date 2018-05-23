@@ -27,13 +27,14 @@ Template Version: 2017-05-26
 #include <cassert> // -- input/condition verification
 //#define NDEBUG // ---- uncomment to disable assert()
 
-#include <vector> // --- standard vector datatype , the friendly array } Data Structures
-#include <list> // ----- standard list datatype                       /
-#include <map> // ------ dictionaries                                /
-#include <set> // ------ sets                                       /
-#include <algorithm> //- Searching structures                      /
-#include <queue> // ---- Priority Queue                           /
-#include <utility> // -- Pair , pair get , swap _________________/
+#include <vector> // --------- standard vector datatype , the friendly array } Data Structures
+#include <list> // ----------- standard list datatype                       /
+#include <map> // ------------ dictionaries                                /
+#include <set> // ------------ sets                                       /
+#include <algorithm> // ------ Searching structures                      /
+#include <queue> // ---------- Priority Queue                           /
+#include <utility> // -------- Pair , pair get , swap                  /
+#include <initializer_list> // Pass array literals to funcs __________/
 
 #include <iostream> // - standard input and output , istream } Input / Output
 #include <fstream> // -- File I/O                           /
@@ -344,14 +345,6 @@ bool is_arg_in_list( T arg , std::list<T>& lst ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_set( T arg , std::set<T>& st ){
-	// Return true if 'arg' is in 'st' , false otherwise
-	// URL , C++ cannot recognize a templated typename
-	typename std::set<T>::iterator it = st.find( arg );
-	return it != st.end();
-}
-
-template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool is_arg_in_vector( T arg , std::vector<T>& vec ){
 	// Return true if 'arg' is in 'st' , false otherwise
 	// URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
@@ -437,6 +430,7 @@ std::vector<std::vector<bool>> bool_false_vec_vec( size_t length );
 size_t random_false_elem_index( std::vector<bool> vec );
 
 bool all_elem_true( std::vector<bool>& bulVec ); // Return true if all elements true , otherwise return false
+bool any_elem_true( std::vector<bool>& bulVec ); // Return true if any elements true , otherwise return false
 
 //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 llin indexw( llin len , llin i );
@@ -466,6 +460,24 @@ std::vector<T> vec_copy_without_elem( std::vector<T>& original , std::vector<T>&
 	size_t len = original.size();
 	std::vector<T> rtnVec;
 	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_vector( original[i] , holdout ) ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdElem , std::vector<T>& holdVec ){
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  
+		if(   ( !is_arg_in_vector( original[i] , holdVec ) )  &&  ( original[i] != holdElem )  ){  rtnVec.push_back( original[i] );  }  
+	}
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_one_index( std::vector<T>& original , size_t index ){
+	std::vector<T> rtnVec;
+	if( index < original.size() ){  rtnVec.push_back( original[ index ] );  }
 	return rtnVec;
 }
 
@@ -718,6 +730,7 @@ std::vector<T> linspace( T a , T b , size_t N ){
     return xs;
 }
 
+
 // = Queues =
 
 // Empty the queue and discard all the values
@@ -740,6 +753,7 @@ void enqueue_vec( std::queue<T>& Q , std::vector<T>& additions ){
 
 // _ End Queue _
 
+
 // = Maps =
 
 template < typename T1 , typename T2 >
@@ -751,6 +765,26 @@ std::vector<T1> map_keys_vec( std::map< T1 , T2 >& dict ){
 }
 
 // _ End Maps _
+
+
+// = Sets =
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+bool is_arg_in_set( T arg , std::set<T>& st ){
+	// Return true if 'arg' is in 'st' , false otherwise
+	// URL , C++ cannot recognize a templated typename
+	typename std::set<T>::iterator it = st.find( arg );
+	return it != st.end();
+}
+
+template<typename T> 
+void set_insert_vec( std::set<T>& st , std::vector<T>& vec ){
+	// Insert all of the elements of 'vec' into 'st'.  'st' will automatically reject repeats
+	size_t len = vec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  st.insert( vec[i] );  }
+}
+
+// _ End Sets _
 
 // __ End Container __
 
