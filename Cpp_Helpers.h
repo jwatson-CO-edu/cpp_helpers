@@ -355,6 +355,24 @@ bool is_arg_in_vector( T arg , std::vector<T>& vec ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+size_t count_lessThan_in_vec( T query , std::vector<T>& searchVec ){
+	// Return the number of elements of 'searchVec' that are less than 'query'
+	size_t count = 0                , 
+		   len   = searchVec.size() ;
+	for( size_t i = 0 ; i < len ; i++ ){  if( searchVec[i] < query ){  count++;  }  }
+	return count;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+size_t count_elems_also_in( std::vector<T>& searchVec , std::vector<T>& compareVec ){
+	// Return the number of elements of 'searchVec' that can be found in 'compareVec' (Repeats counted)
+	size_t count = 0                , 
+		   len   = searchVec.size() ;
+	for( size_t i = 0 ; i < len ; i++ ){  if( is_arg_in_vector( searchVec[i] , compareVec ) ){  count++;  }  }
+	return count;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 IndexSearchResult search_vec_for_arg( std::vector<T>& vec , T arg ){
 	// Search the vector for the specified 'arg' and return the result
 	// NOTE: This function assumes that the '==' comparison operator can be used on the vector items
