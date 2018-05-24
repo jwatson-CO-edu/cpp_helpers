@@ -842,16 +842,36 @@ std::ostream& operator<<(std::ostream& os, const Gene& vec) {
 	return os; // You must return a reference to the stream!
 }
 
+
 // ~~ Function Object ~~
 struct myclass {
   bool operator() (int i,int j) { return (i<j);}
 } myobject;
 
+
 // ~~ Array Initialization ~~ 
 int foo[3][2] = { { 1 , 2 } , { 3 , 4 } , { 5 , 6 } }; // Nested array assignment test
 
+
 // ~ Function Pointer ~
 void (*foo)(int) // Declare function pointer 'foo' to a function that takes one int and returns void
+
+
+// ~ Lambda (C++11) ~
+https://www.cprogramming.com/c++11/c++11-lambda-closures.html
+
+// LAMBDA: [&] Capture all named variables by reference
+// Type defaults to void if there is no return statement
+auto checkAndUpdateBest = [&]( Eigen::Vector3d direction ){
+	result = query_NDBG( NDBG , movedParts , referenceParts , direction );
+	if( result.result ){
+		currAng = angle_between( direction , avrgDir );
+		if( currAng < bestAng ){
+			bestDir = direction;
+			bestAng = currAng;
+		}
+	}
+}; // NOTE: Lambda expression must end with a semicolon
 
   __ End Parts __________________________________________________________________________________________________________________________ */
   
