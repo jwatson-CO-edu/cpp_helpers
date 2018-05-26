@@ -364,6 +364,15 @@ size_t count_lessThan_in_vec( T query , std::vector<T>& searchVec ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+size_t count_grtrThan_in_vec( T query , std::vector<T>& searchVec ){
+	// Return the number of elements of 'searchVec' that are less than 'query'
+	size_t count = 0                , 
+		   len   = searchVec.size() ;
+	for( size_t i = 0 ; i < len ; i++ ){  if( searchVec[i] > query ){  count++;  }  }
+	return count;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 size_t count_elems_also_in( std::vector<T>& searchVec , std::vector<T>& compareVec ){
 	// Return the number of elements of 'searchVec' that can be found in 'compareVec' (Repeats counted)
 	size_t count = 0                , 
