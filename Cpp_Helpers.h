@@ -22,6 +22,8 @@ Template Version: 2017-05-26
 #include <stdlib.h> // - srand, rand 
 #include <time.h> // --- time , for getting sys time and seeding random numbers
 #include <ctime> // ---- time , for date formatting
+#include <time.h> /* for clock_gettime */
+#include <stdint.h> /* for uint64 definition */
 #include <limits> // --- number limits of data types, limit on 'cin.ignore'
 #include <ctype.h> // -- type tests
 #include <cassert> // -- input/condition verification
@@ -75,6 +77,7 @@ using llin = long long int; // ---- big ints              // Requires C++11
 
 // ~ Constants ~
 #define EPSILON 1e-8d // ---------- Margin too small to care about
+#define BILLION 1000000000L // ---- ONE BILLION
 double const INFTY_D = std::numeric_limits<double>::infinity();
 
 // __ End Shortcuts __
@@ -213,6 +216,29 @@ bool isnewline( char queryChar ); // Return true if the char is a newline , Othe
 std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator ); // Return a vector of doubles between 'separator'
 
 // __ End String __
+
+
+// == Timing ==
+
+class StopWatch{
+	
+public:
+	
+	StopWatch();
+	StopWatch( double intervalSec );
+	bool has_interval_elapsed();
+	double seconds_elapsed();
+	void mark();
+		
+protected:
+
+	double interval;
+	struct timespec tNow;
+	struct timespec tMrk;
+	
+};
+
+// __ End Timing __
 
 
 // == Container Tools ==

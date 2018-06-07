@@ -1,7 +1,7 @@
 /***********  
-SOURCE_TEMPLATE.cpp
-James Watson , YYYY MONTHNAME
-A ONE-LINE DESRIPTION OF THE FILE
+ROS_Helpers.cpp
+James Watson , 2018 June
+Common ROS Functions & Tasks
 
 Template Version: 2017-09-23
 ***********/
@@ -18,7 +18,30 @@ Template Version: 2017-09-23
 
 // === Functions ===========================================================================================================================
 
-
+void ros_log( string msg , LogLevel level ){
+  switch( level )
+  {
+	  
+    case WARN :
+    {
+      ROS_WARN_STREAM( msg );
+      break;
+    }
+    
+    case ERROR :
+    {
+      ROS_ERROR_STREAM( msg );
+      break;    
+    }
+    
+    default:
+    {
+      ROS_INFO_STREAM( msg );
+      break;    
+    }
+    
+  }
+}
 
 // ___ End Func ____________________________________________________________________________________________________________________________
 
@@ -32,3 +55,4 @@ Template Version: 2017-09-23
    ___ End Parts ___________________________________________________________________________________________________________________________
 
 */
+

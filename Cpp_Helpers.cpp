@@ -189,6 +189,51 @@ std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator
 // __ End String __
 
 
+// == Timing ==
+
+// = class StopWatch =
+
+void StopWatch::mark(){
+	// Mark the present time for comparison later
+	clock_gettime( CLOCK_MONOTONIC , &tMrk );
+}
+
+StopWatch::StopWatch(){  mark();  } // New StopWatch with the time of it's instantiation marked
+
+StopWatch::StopWatch( double intervalSec ){
+	// New StopWatch with a monitored interval specified
+	mark();
+	interval = intervalSec;
+}
+
+double StopWatch::seconds_elapsed(){
+	// Get the number of seconds that have passed since the last mark
+	// 1. Get current time
+	clock_gettime( CLOCK_MONOTONIC , &tNow );
+	// 2. Get elapsed time
+	return (double) ( tNow.tv_sec - tMrk.tv_sec ) + (double) ( tNow.tv_nsec - tMrk.tv_nsec ) / BILLION;
+}
+
+bool StopWatch::has_interval_elapsed(){
+	// If the interval has passed since the last mark, return true and reset mark, Otherwise return false
+	bool answer = false;
+	// 1. Get elapsed time
+	double diff = seconds_elapsed();
+	// 2. If the interval has elapsed, set mark
+	if( diff >= interval ){
+		answer = true;
+		mark();
+	}
+	return answer;
+}
+
+
+
+// _ End StopWatch _
+
+// __ End Timing __
+
+
 // == Container Tools ==
 
 std::vector<bool> bool_false_vector( size_t length ){
