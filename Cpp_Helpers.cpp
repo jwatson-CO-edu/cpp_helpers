@@ -50,6 +50,12 @@ int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) )
 
 double randrange( double lo , double hi ){ return lo + (double) rand() * ( hi - lo ); }
 
+std::vector<double> randrange_vec( double lo , double hi , size_t len ){
+	std::vector<double> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( randrange( lo , hi ) );  }
+	return rtnVec;
+}
+
 usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // --- Return the nth triangular number
 size_t tri_num( size_t n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number
 

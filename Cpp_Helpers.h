@@ -159,6 +159,8 @@ int randrange( int bgn , int end );
 
 double randrange( double lo , double hi );
 
+std::vector<double> randrange_vec( double lo , double hi , size_t len );
+
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
 
