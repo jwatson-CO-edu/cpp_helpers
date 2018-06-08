@@ -3,10 +3,10 @@ SOURCE_TEMPLATE.cpp
 James Watson , YYYY MONTHNAME
 A ONE-LINE DESRIPTION OF THE FILE
 
-Template Version: 2017-09-23
+Template Version: 2018-06-07
 ***********/
 
-#include "ROS_Helpers.h"
+#include "HEADER_TEMPLATE.h"
 
 // === Classes and Structs =================================================================================================================
 
