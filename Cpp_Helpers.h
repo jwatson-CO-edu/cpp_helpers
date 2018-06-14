@@ -28,6 +28,7 @@ Template Version: 2017-05-26
 #include <ctype.h> // -- type tests
 #include <cassert> // -- input/condition verification
 //#define NDEBUG // ---- uncomment to disable assert()
+#include <stdexcept> //- std errors
 
 #include <vector> // --------- standard vector datatype , the friendly array } Data Structures
 #include <list> // ----------- standard list datatype                       /
@@ -375,10 +376,11 @@ bool is_arg_in_list( T arg , std::list<T>& lst ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_vector( T arg , std::vector<T>& vec ){
+bool is_arg_in_vector( T arg , const std::vector<T>& vec ){
 	// Return true if 'arg' is in 'st' , false otherwise
 	// URL , resolve dependent templated typenames: https://stackoverflow.com/a/11275548
-	typename std::vector<T>::iterator it = find( vec.begin() , vec.end() , arg );
+	// URL , const_iterator: https://stackoverflow.com/a/309589
+	typename std::vector<T>::const_iterator it = find( vec.begin() , vec.end() , arg ); 
 	return it != vec.end();
 }
 
