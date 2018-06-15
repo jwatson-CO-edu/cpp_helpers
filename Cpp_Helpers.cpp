@@ -343,3 +343,15 @@ llin Incrementer::operator()(){ llin temp = count;  count++;  return temp;  } //
 // __ End Incrementer __
 
 // ___ End Functors ___
+
+
+// === Memory Utils ===
+
+string pointer_info_str( void* generalPointer ){
+	return string( "Pointer Null?: " ) 
+	     + string( generalPointer == nullptr ? "YES" : "NO" ) 
+	     + string( " , Data: " )
+	     + string( (char*)generalPointer );
+}
+
+// ___ End Memory ___

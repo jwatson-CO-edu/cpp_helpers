@@ -880,6 +880,12 @@ protected:
 // ___ End Functors ___
 
 
+// === Memory Utils ===
+
+string pointer_info_str( void* generalPointer );
+
+// ___ End Memory ___
+
 #endif
 
 /* == Useful Parts =========================================================================================================================
