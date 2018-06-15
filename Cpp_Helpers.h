@@ -86,10 +86,24 @@ double const INFTY_D = std::numeric_limits<double>::infinity();
 
 // === Structs ===
 
+// ~~ Indices ~~
+
 struct IndexSearchResult{ // A container to hold a search result for an index that cannot have a negative value
 	bool   result; // Is the result a valid one?
 	size_t index; //- If so, which is the index we like best?
 };
+
+struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
+	bool /* -------- */ result; // Is the result a valid one?
+	std::vector<size_t> indices; //- If so, which is the index we like best?
+};
+
+struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
+	size_t index; // - Which is the index we like best?
+	double measure; // How much do we like it?
+};
+
+// ~~ ID Numbers ~~
 
 struct IDSearchResult{ // A container to hold a search result for an ID that can be negative
 	bool result; // Is the result a valid one?
@@ -101,25 +115,26 @@ struct IDScoreLookup{ // A cheap, sequential "associative array" relating IDs to
 	std::vector<double> scoreVec; // Scores associated with each ID
 };
 
-struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
-	size_t index; // - Which is the index we like best?
-	double measure; // How much do we like it?
-};
-
 struct IDDbblResult{ // A container to hold a search result for an index that cannot have a negative value
 	llin   ID; // ---- Which is the index we like best?
 	double measure; // How much do we like it?
 };
 
-struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
-	bool /* -------- */ result; // Is the result a valid one?
-	std::vector<size_t> indices; //- If so, which is the index we like best?
-};
+// ~~ Enums & Codes ~~
 
 struct SuccessCode{
 	bool   success; // Succeed or Fail?
 	size_t code; // -- Status code
 	string desc; // -- Description of { disposition , failure reason , results , etc }
+};
+
+struct IndexSuccesLookup{ // A cheap, sequential "associative array" relating indices to scores / results
+	bool /* ------------- */ result; // -- Did the search succeed or not?
+	size_t /* ----------- */ bestDex; // - Winner , Winner , Chicken Dinner
+	std::vector<SuccessCode> succesVec; // Vector of success reports
+	std::vector<double>      scoreVec; //- Scores associated with each ID
+	std::vector<size_t>      indices; // - Vector of indices, If left empty, indices are assumed to proceed from 0 to ( succesVec.size()-1 )
+	std::vector<bool>        flagVec; // - Wildcard, vector of flags
 };
 
 // ___ End Struct ___
