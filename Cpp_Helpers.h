@@ -63,11 +63,12 @@ using std::string; // ----- strings!           // Requires C++11
 using std::to_string; // -- string conversion  // Requires C++11
 using std::min; // -------- 'min' function
 using std::max; // -------- 'max' function
-using std::isnan; // ------ NaN Test
-using std::isinf; // ------ Infinity Test
 using std::abs; // -------- Absolute value
 using std::pow; // -------- Exponents
 using std::ceil; // ------- Ceiling
+using std::round; // ------ To nearest integer
+using std::isnan; // ------ NaN Test
+using std::isinf; // ------ Infinity Test
 using std::printf; // ----- Our fave printing function from C
 using std::swap; // ------- Swap 2 values , per CS 100
 using std::sort; // ------- Get it sorted
