@@ -129,6 +129,11 @@ struct SuccessCode{
 	string desc; // -- Description of { disposition , failure reason , results , etc }
 };
 
+struct BoolScore{ // Did we win?  By how much did we win or lose?
+	bool   flag; //- Succeed or Fail?
+	double score; // Scalar representation of how hard we are winning 
+};
+
 struct IndexSuccesLookup{ // A cheap, sequential "associative array" relating indices to scores / results
 	bool /* ------------- */ result; // -- Did the search succeed or not?
 	size_t /* ----------- */ bestDex; // - Winner , Winner , Chicken Dinner
