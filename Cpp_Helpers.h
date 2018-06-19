@@ -465,18 +465,6 @@ IndexSearchResult search_vec_for_arg( const std::vector<T>& vec , T arg ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool vec2_contains_vec1( std::vector<T>& vec1 , std::vector<T>& vec2 ){
-	// Return true if every element of 'vec1' can be found in 'vec2' , Otherwise return false
-	size_t len1 = vec1.size();
-	IndexSearchResult result;
-	for( size_t i = 0 ; i < len1 ; i++ ){ // For each of the elements of 'vec1'
-		result = search_vec_for_arg( vec2 , vec1[i] );
-		if( !result.result ){ return false; } // Mismatch , Shortcut to false
-	}
-	return true; // Of we got here, then none of the searches failed
-}
-
-template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool vec2_contains_vec1( const std::vector<T>& vec1 , const std::vector<T>& vec2 ){
 	// Return true if every element of 'vec1' can be found in 'vec2' , Otherwise return false
 	size_t len1 = vec1.size();
@@ -486,12 +474,6 @@ bool vec2_contains_vec1( const std::vector<T>& vec1 , const std::vector<T>& vec2
 		if( !result.result ){ return false; } // Mismatch , Shortcut to false
 	}
 	return true; // Of we got here, then none of the searches failed
-}
-
-template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool vec_same_contents( std::vector<T>& vec1 , std::vector<T>& vec2 ){
-	// Return true if and only if all of the elements of 'vec1' are in 'vec2' and vice-versa
-	return vec2_contains_vec1( vec1 , vec2 ) && vec2_contains_vec1( vec2 , vec1 );
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
