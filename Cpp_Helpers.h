@@ -406,6 +406,15 @@ bool is_arg_in_vector( T arg , const std::vector<T>& vec ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+std::vector<T> vec_intersection( const std::vector<T>& vec1 , const std::vector<T>& vec2 ){
+	// Return a vector of all the common elements of 'vec1' and 'vec2'
+	std::vector<T> rtnVec;
+	size_t len = vec1.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( is_arg_in_vector( vec1[i] , vec2 ) ){  rtnVec.push_back( vec1[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 size_t count_lessThan_in_vec( T query , std::vector<T>& searchVec ){
 	// Return the number of elements of 'searchVec' that are less than 'query'
 	size_t count = 0                , 
@@ -808,7 +817,7 @@ T queue_get_pop( std::queue<T>& Q ){
 }
 
 template<typename T> 
-void enqueue_vec( std::queue<T>& Q , std::vector<T>& additions ){
+void enqueue_vec( std::queue<T>& Q , const std::vector<T>& additions ){
 	size_t len = additions.size();
 	for( size_t i = 0 ; i < len ; i++ ){  Q.push( additions[i] );  }
 }
@@ -832,7 +841,7 @@ std::vector<T1> map_keys_vec( std::map< T1 , T2 >& dict ){
 // = Sets =
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool is_arg_in_set( T arg , std::set<T>& st ){
+bool is_arg_in_set( T arg , const std::set<T>& st ){
 	// Return true if 'arg' is in 'st' , false otherwise
 	// URL , C++ cannot recognize a templated typename
 	typename std::set<T>::iterator it = st.find( arg );
@@ -840,10 +849,27 @@ bool is_arg_in_set( T arg , std::set<T>& st ){
 }
 
 template<typename T> 
-void set_insert_vec( std::set<T>& st , std::vector<T>& vec ){
+void set_insert_vec( std::set<T>& st , const std::vector<T>& vec ){
 	// Insert all of the elements of 'vec' into 'st'.  'st' will automatically reject repeats
 	size_t len = vec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  st.insert( vec[i] );  }
+}
+
+template<typename T> 
+std::vector<T> set_to_vec( const std::set<T>& st ){
+	// Return a vector that contains all of the elements in the set
+	std::vector<T> rtnVec;
+	for( typename std::set<T>::iterator it = st.begin() ; it != st.end() ; ++it ){  rtnVec.push_back( *it );  }
+	return rtnVec;
+}
+
+template<typename T> 
+std::vector<T> vec_minus_set( const std::vector<T>& vec , const std::set<T>& st ){
+	// Return a vector of all the elements of 'vec' NOT in 'st'
+	std::vector<T> rtnVec;
+	size_t len = vec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( vec[i] , st ) ){  rtnVec.push_back( vec[i] );  }  }
+	return rtnVec;
 }
 
 // _ End Sets _
