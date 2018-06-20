@@ -267,18 +267,26 @@ size_t random_false_elem_index( std::vector<bool> vec ){
 	return rand_choice( availableIndices );
 }
 
-bool all_elem_true( std::vector<bool>& bulVec ){ 
+bool all_elem_true( const std::vector<bool>& bulVec ){ 
 	// Return true if all elements true , otherwise return false
 	size_t len = bulVec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( !bulVec[i] ){  return false;  }  }
 	return true;
 }
 
-bool any_elem_true( std::vector<bool>& bulVec ){
+bool any_elem_true( const std::vector<bool>& bulVec ){
 	// Return true if any elements true , otherwise return false
 	size_t len = bulVec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( bulVec[i] ){  return true;  }  }
 	return false;
+}
+
+size_t count_elem_true( const std::vector<bool>& bulVec ){
+	// Return the number of elements that are true
+	size_t len       = bulVec.size() , 
+		   totalTrue = 0             ;
+	for( size_t i = 0 ; i < len ; i++ ){  if( bulVec[i] ){  totalTrue++;  }  }
+	return totalTrue;
 }
 
 llin indexw( llin len , llin i ){

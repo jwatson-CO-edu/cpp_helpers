@@ -280,6 +280,9 @@ ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<'
 }
 
 template<typename T>
+size_t last_index( const std::vector<T>& vec ){  return vec.size() - 1;  }
+
+template<typename T>
 std::vector<T> vec_copy( std::vector<T>& original ){
 	size_t len = original.size();
 	std::vector<T> rtnVec;
@@ -500,8 +503,9 @@ std::vector<std::vector<bool>> bool_false_vec_vec( size_t length );
 
 size_t random_false_elem_index( std::vector<bool> vec );
 
-bool all_elem_true( std::vector<bool>& bulVec ); // Return true if all elements true , otherwise return false
-bool any_elem_true( std::vector<bool>& bulVec ); // Return true if any elements true , otherwise return false
+bool   all_elem_true( const std::vector<bool>& bulVec ); // - Return true if all elements true , otherwise return false
+bool   any_elem_true( const std::vector<bool>& bulVec ); // - Return true if any elements true , otherwise return false
+size_t count_elem_true( const std::vector<bool>& bulVec ); // Return the number of elements that are true
 
 //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 llin indexw( llin len , llin i );
