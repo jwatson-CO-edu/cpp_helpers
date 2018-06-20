@@ -898,6 +898,15 @@ protected:
 
 string pointer_info_str( void* generalPointer );
 
+template<typename T>
+void delif( T*& prt ){  
+	// Delete the pointer if it contains data and set it to NULL
+	if( prt ){  
+		delete prt;  
+		prt = nullptr;
+	}  
+} 
+
 // ___ End Memory ___
 
 #endif
