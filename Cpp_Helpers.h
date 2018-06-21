@@ -919,6 +919,9 @@ void delif( T*& prt ){
 
 /* == Useful Parts =========================================================================================================================
 
+// ~~ Debug by Print ~~
+bool SHOWDEBUG = true; // if( SHOWDEBUG ){  cout << "" << endl;  }
+
 // ~~ cout << operator ~~
 std::ostream& operator<<(std::ostream& os, const Gene& vec) {
 	std::vector<float> codons = vec.copy_codons();
@@ -932,7 +935,7 @@ std::ostream& operator<<(std::ostream& os, const Gene& vec) {
 }
 
 
-// ~~ Function Object ~~
+// ~~ Function Object (functor) ~~
 struct myclass {
   bool operator() (int i,int j) { return (i<j);}
 } myobject;
