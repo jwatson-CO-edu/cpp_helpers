@@ -338,6 +338,13 @@ std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ){
 	return rtnVecVec;
 }
 
+bool is_err( const std::vector<double>& vec ){
+	// Return true if all of the elements are NaN, Otherwise return false
+	size_t len = vec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  if( !isnan( vec[i] ) ){ return false; }  }
+	return true;
+}
+
 // __ End Container __
 
 // === Functors ===

@@ -878,6 +878,8 @@ std::vector<T> vec_minus_set( const std::vector<T>& vec , const std::set<T>& st 
 
 // _ End Sets _
 
+bool is_err( const std::vector<double>& vec ); // Return true if all of the elements are NaN, Otherwise return false
+
 // __ End Container __
 
 
