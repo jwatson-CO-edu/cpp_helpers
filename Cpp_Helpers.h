@@ -342,11 +342,24 @@ T min_num_in_vec( std::vector<T> searchVec ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-T max_num_in_vec( std::vector<T> searchVec ){
+T max_num_in_vec( const std::vector<T>& searchVec ){ // DEPRECATED , THOUGH USED IN ASP
+	// NOTE: This function assumes that 'searchVec' has at least one element
 	T      most    = searchVec[0]; 
 	size_t i       = 0                , 
 	       numElem = searchVec.size() ;
-	for( i = 0 ; i < numElem ; i++ ){ 
+	for( i = 1 ; i < numElem ; i++ ){ 
+		most = max( searchVec[i] , most ); 
+	} 
+	return most;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+T max( const std::vector<T>& searchVec ){ 
+	// NOTE: This function assumes that 'searchVec' has at least one element
+	size_t i       = 0                , 
+	       numElem = searchVec.size() ;
+	T      most    = searchVec[0]; 
+	for( i = 1 ; i < numElem ; i++ ){ 
 		most = max( searchVec[i] , most ); 
 	} 
 	return most;
@@ -805,6 +818,49 @@ std::vector<T> linspace( T a , T b , size_t N ){
     return xs;
 }
 
+template<typename T>
+std::vector<T> operator*( const std::vector<T>& opVec , T opScl ){
+	// Scale all of the elements of 'opVec' by 'opScl'
+	std::vector<T> rtnVec;
+	size_t len = opVec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( opVec[i] * opScl );  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> operator-( const std::vector<T>& op1 , const std::vector<T>& op2 ){
+	// Element-wise subtraction of op1 - op2
+	std::vector<T> rtnVec;
+	size_t len = op1.size();
+	if( len == op2.size() ){
+		for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( op1[i] - op2[i] );  }
+		return rtnVec;
+	}else{
+		throw std::out_of_range ( "operator- std::vector<T> , Vector length mismatch: " + to_string( len ) + " and " + to_string( op2.size() ) );
+	}
+}
+
+template<typename T>
+std::vector<T> operator/( const std::vector<T>& op1 , const std::vector<T>& op2 ){
+	// Element-wise division of op1 / op2
+	std::vector<T> rtnVec;
+	size_t len = op1.size();
+	if( len == op2.size() ){
+		for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( op1[i] / op2[i] );  }
+		return rtnVec;
+	}else{
+		throw std::out_of_range ( "operator/ std::vector<T> , Vector length mismatch: " + to_string( len ) + " and " + to_string( op2.size() ) );
+	}
+}
+
+template<typename T>
+std::vector<T> abs( const std::vector<T>& op1 ){
+	// Element-wise absolute value: abs( op1[i] ) 
+	std::vector<T> rtnVec;
+	size_t len = op1.size();
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( abs( op1[i] ) );  }
+	return rtnVec;
+}
 
 // = Queues =
 
