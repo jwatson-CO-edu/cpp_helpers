@@ -862,6 +862,22 @@ std::vector<T> abs( const std::vector<T>& op1 ){
 	return rtnVec;
 }
 
+template<typename T>
+std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , size_t bgn , size_t end ){
+	size_t len = superVec.size();
+	if(  ( bgn < len )  &&  ( end < len )  ){
+		if( bgn > end ){  size_t swap = bgn;  bgn = end;  end = swap;  }
+		// URL , Fetch sub-vector: https://stackoverflow.com/a/421615
+		typename std::vector<T>::const_iterator it_bgn = superVec.begin() + bgn;
+		typename std::vector<T>::const_iterator it_end = superVec.begin() + end;
+		std::vector<T> rtnVec( it_bgn , it_end );
+		return rtnVec;
+	}else{
+		throw std::out_of_range ( "subvec_of_from_to , An index was out of range , bgn: " + to_string( bgn ) + " , end: " + to_string( end )
+								+ " out of " + to_string( len ) );
+	}
+}
+
 // = Queues =
 
 // Empty the queue and discard all the values
