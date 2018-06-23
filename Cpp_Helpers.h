@@ -862,8 +862,8 @@ std::vector<T> abs( const std::vector<T>& op1 ){
 	return rtnVec;
 }
 
-template<typename T>
-std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , size_t bgn , size_t end ){
+template< typename T , typename INT >
+std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , INT bgn , INT end ){
 	size_t len = superVec.size();
 	if(  ( bgn < len )  &&  ( end < len )  ){
 		if( bgn > end ){  size_t swap = bgn;  bgn = end;  end = swap;  }
