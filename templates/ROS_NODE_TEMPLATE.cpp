@@ -8,7 +8,7 @@ Publises To ----> :
 Subscribes To <-- :
 
 Dependencies: ROS , Cpp_Helpers , ROS_Helpers
-Template Version: 2018-06-21
+Template Version: 2018-06-25
 */
 
 // === Imports =============================================================================================================================
@@ -85,6 +85,12 @@ int main( int argc , char** argv ){ // Main takes the terminal command and flags
 	
 	// ~ Service Clients ~
 	// ros::ServiceClient CLIENT_OBJ = nodeHandle.serviceClient<CATEGORY::SERVICE_TYPE>( "SERVICE_NAME" );
+	
+	
+	// N-2. Animation Init 
+	//~ srand( ( time( 0 ) % 1 ) * 1000.0 + getpid() ); // Random seed based on the current clock time
+	//~ RViz_MarkerManager mrkrMngr{};
+	//~ visualization_msgs::MarkerArray& markerArr = mrkrMngr.get_arr();
 	
 	/// == PRE-LOOP WORK ===================================================================================================================
 		

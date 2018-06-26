@@ -291,7 +291,7 @@ std::vector<T> vec_copy( std::vector<T>& original ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-void extend_vec_with( std::vector<T>& original , std::vector<T>& extension ){
+void extend_vec_with( std::vector<T>& original , const std::vector<T>& extension ){
 	size_t xtLen = extension.size();
 	for( size_t i = 0 ; i < xtLen ; i++ ){  original.push_back( extension[i] );  } // Using this so that you can extend vector with itself
 }
@@ -854,6 +854,13 @@ std::vector<T> operator/( const std::vector<T>& op1 , const std::vector<T>& op2 
 }
 
 template<typename T>
+std::vector<T>& operator+=( std::vector<T>& opLeft , T opRght ){
+	size_t len = opLeft.size();
+	for( size_t i = 0 ; i < len ; i++ ){  opLeft[i] += opRght;  }
+	return opLeft;
+}
+
+template<typename T>
 std::vector<T> abs( const std::vector<T>& op1 ){
 	// Element-wise absolute value: abs( op1[i] ) 
 	std::vector<T> rtnVec;
@@ -869,7 +876,7 @@ std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , INT bgn , INT
 		if( bgn > end ){  size_t swap = bgn;  bgn = end;  end = swap;  }
 		// URL , Fetch sub-vector: https://stackoverflow.com/a/421615
 		typename std::vector<T>::const_iterator it_bgn = superVec.begin() + bgn;
-		typename std::vector<T>::const_iterator it_end = superVec.begin() + end;
+		typename std::vector<T>::const_iterator it_end = superVec.begin() + end + 1; // I do not prefer the Python slicing indices
 		std::vector<T> rtnVec( it_bgn , it_end );
 		return rtnVec;
 	}else{
