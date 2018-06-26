@@ -297,6 +297,15 @@ void extend_vec_with( std::vector<T>& original , const std::vector<T>& extension
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
+std::vector<T> vec_join( const std::vector<T>& vec1 , const std::vector<T>& vec2 ){
+	// Return the vector that is the concatenation of 'vec1' and 'vec2'
+	std::vector<T> rtnVec;
+	extend_vec_with( rtnVec , vec1 );
+	extend_vec_with( rtnVec , vec2 );
+	return rtnVec;
+}
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
 std::vector<T> vec_plus_one( std::vector<T>& original , T plusOne ){
 	std::vector<T> rtnVec;
 	rtnVec = vec_copy( original );
