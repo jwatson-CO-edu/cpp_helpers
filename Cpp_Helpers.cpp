@@ -41,6 +41,8 @@ float rand_float(){ return (float)  rand() / (float)RAND_MAX; }
 
 double rand_dbbl(){ return (double) rand() / (double)RAND_MAX; }
 
+bool dice_roll( double prob ){  return rand_dbbl() < prob;  }
+
 int    randrange( int end ){    return (int)( rand() % end );    }
 size_t randrange( size_t end ){ return (size_t)( rand() % end ); }
 

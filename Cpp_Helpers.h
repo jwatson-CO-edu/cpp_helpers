@@ -80,7 +80,8 @@ using llin = long long int; // ---- big ints              // Requires C++11
 // ~ Constants ~
 #define EPSILON 1e-8d // ---------- Margin too small to care about
 #define BILLION 1000000000L // ---- ONE BILLION
-double const INFTY_D = std::numeric_limits<double>::infinity();
+double const INFTY_D   = std::numeric_limits<double>::infinity();
+double const BILLION_D = 1e9;
 
 // __ End Shortcuts __
 
@@ -172,6 +173,8 @@ void newline(); //  print a new line
 float rand_float(); // Note that this is not exactly uniformly distributed
 
 double rand_dbbl();
+
+bool dice_roll( double prob );
 
 int randrange( int end );
 
@@ -993,11 +996,11 @@ protected:
 string pointer_info_str( void* generalPointer );
 
 template<typename T>
-void delif( T*& prt ){  
+void delif( T*& ptr ){  
 	// Delete the pointer if it contains data and set it to NULL
-	if( prt ){  
-		delete prt;  
-		prt = nullptr;
+	if( ptr ){  
+		delete ptr;  
+		ptr = nullptr;
 	}  
 } 
 
