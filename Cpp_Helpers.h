@@ -594,6 +594,13 @@ std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout
 }
 
 template<typename T>
+void vec_assign_all_same( std::vector<T>& original , T sameVal ){
+	// Assign each element to be the same value
+	size_t len = original.size();
+	for( size_t i = 0 ; i < len ; i++ ){  original[i] = sameVal;  }
+}
+
+template<typename T>
 std::vector< size_t > vec_vec_len( std::vector<std::vector<T>>& vecVec ){
 	std::vector<size_t> rtnVec;
 	size_t len = vecVec.size();
