@@ -538,6 +538,11 @@ size_t count_elem_true( const std::vector<bool>& bulVec ); // Return the number 
 //  Return the 'i'th index of 'iterable', wrapping to index 0 at all integer multiples of 'len' , Wraps forward and backwards , Python Style
 llin indexw( llin len , llin i );
 
+template<typename T>
+size_t wrap_index_for_vec( size_t index , const std::vector<T>& vec ){  return index % vec.size();  }
+
+size_t wrap_index_for_len( size_t index , size_t len );
+
 std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet );
 
 template<typename T>
@@ -549,7 +554,7 @@ std::vector<T> vec_copy( const std::vector<T>& original ){
 }
 
 template<typename T>
-std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdout ){
+std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdout ){ // non-const params
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
 	std::vector<T> rtnVec;
@@ -558,7 +563,16 @@ std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdout ){
 }
 
 template<typename T>
-std::vector<T> vec_copy_without_elem( std::vector<T>& original , std::vector<T>& holdout ){
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout ){ // const params
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( original[i] != holdout ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std::vector<T>& holdout ){
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
 	std::vector<T> rtnVec;
@@ -567,7 +581,7 @@ std::vector<T> vec_copy_without_elem( std::vector<T>& original , std::vector<T>&
 }
 
 template<typename T>
-std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdElem , std::vector<T>& holdVec ){
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdElem , const std::vector<T>& holdVec ){
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
 	std::vector<T> rtnVec;
@@ -578,18 +592,9 @@ std::vector<T> vec_copy_without_elem( std::vector<T>& original , T holdElem , st
 }
 
 template<typename T>
-std::vector<T> vec_copy_one_index( std::vector<T>& original , size_t index ){
+std::vector<T> vec_copy_one_index( const std::vector<T>& original , size_t index ){
 	std::vector<T> rtnVec;
 	if( index < original.size() ){  rtnVec.push_back( original[ index ] );  }
-	return rtnVec;
-}
-
-template<typename T>
-std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdout ){
-	// NOTE: This function assumes that the equality operator is defined for type T
-	size_t len = original.size();
-	std::vector<T> rtnVec;
-	for( size_t i = 0 ; i < len ; i++ ){  if( original[i] != holdout ){  rtnVec.push_back( original[i] );  }  }
 	return rtnVec;
 }
 

@@ -303,6 +303,8 @@ llin indexw( llin len , llin i ){
 	}
 }
 
+size_t wrap_index_for_len( size_t index , size_t len ){  return index % len;  }
+
 std::ostream& operator<<( std::ostream& os , const std::set<int>& elemSet ) {
 	size_t count = 0              ,
 		   len   = elemSet.size() ;
