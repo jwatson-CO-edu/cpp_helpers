@@ -53,6 +53,7 @@ Template Version: 2017-05-26
 
 // ~ Standard Shortcuts ~ // This is only for names that are unlikely to be shadowed
 using std::cout; // ------- output to terminal
+using std::cerr; // ------- Unbuffered terminal output
 using std::endl; // ------- newline
 using std::cin; // -------- input from terminal
 using std::ifstream; // --- File Input streams
@@ -188,6 +189,9 @@ std::vector<double> randrange_vec( double lo , double hi , size_t len );
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+bool eq( T op1 , T op2 , T eps ){ return ( abs( op1 - op2 ) ) < eps; }
 
 template < typename T , typename U >
 bool eq( T op1 , U op2 ){ return ( abs( (double)op1 - (double)op2 ) ) < EPSILON; }
