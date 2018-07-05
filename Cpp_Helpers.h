@@ -949,6 +949,12 @@ std::vector<T1> map_keys_vec( std::map< T1 , T2 >& dict ){
 	return rtnVec;
 }
 
+template < typename T1 , typename T2 >
+std::vector<T1> map_has_key( const std::map< T1 , T2 >& dict , T1 key ){
+	typename std::map< T1 , T2 >::iterator it = dict.find( key );
+	return it != dict.end();
+}
+
 // _ End Maps _
 
 
