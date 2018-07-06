@@ -1029,6 +1029,14 @@ void delif( T*& ptr ){
 	}  
 } 
 
+template<typename T>
+void clearif( std::vector<T*>& vec ){
+	// Delete a vector of pointers, Then clear the vector
+	size_t len = vec.size();
+	for( size_t i = 0 ; i < len ; i++ ){  delif( vec[i] );  }
+	vec.clear();
+}
+
 // ___ End Memory ___
 
 #endif
