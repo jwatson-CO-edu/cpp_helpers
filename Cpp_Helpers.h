@@ -936,6 +936,14 @@ void enqueue_vec( std::queue<T>& Q , const std::vector<T>& additions ){
 	for( size_t i = 0 ; i < len ; i++ ){  Q.push( additions[i] );  }
 }
 
+template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
+T queue_get_pop( std::priority_queue< T , std::vector<T> , F >& Q ){ 
+	// Get the front item, then pop it
+	T temp = Q.top();
+	Q.pop();
+	return temp;
+}
+
 // _ End Queue _
 
 
