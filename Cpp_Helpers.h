@@ -944,6 +944,9 @@ T queue_get_pop( std::priority_queue< T , std::vector<T> , F >& Q ){
 	return temp;
 }
 
+template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
+void erase_queue( std::priority_queue< T , std::vector<T> , F >& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
+
 // _ End Queue _
 
 
