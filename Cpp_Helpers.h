@@ -204,6 +204,12 @@ double round_zero( double num );
 template <typename T> 
 int sign( T val ) { return ( T(0) < val ) - ( val < T(0) ); } // Return the sign if the number: -1 for val<0 , 0 for val==0 , 1 for val>0
 
+template <typename T> 
+bool is_even( T number ){  return ( number % (T)2 ) == 0;  }
+
+template <typename T> 
+bool is_odd( T number ){  return ( number % (T)2 ) != 0;  }
+
 // __ End Math __
 
 
