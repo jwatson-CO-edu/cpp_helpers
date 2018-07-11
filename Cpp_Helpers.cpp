@@ -32,6 +32,8 @@ void sep( string title , size_t width , char dingbat ){
 
 void newline(){ cout << endl; } // print a new line
 
+string yesno( bool condition ){  return ( condition ? "YES" : "NO" );  }
+
 // __ End Debug __
 
 

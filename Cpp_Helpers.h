@@ -166,6 +166,8 @@ void sep( string title = "" , size_t width = 6 , char dingbat = '=' ); // Print 
 
 void newline(); //  print a new line
 
+string yesno( bool condition );
+
 // __ End Debug __
 
 
