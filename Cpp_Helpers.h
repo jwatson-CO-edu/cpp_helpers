@@ -294,6 +294,18 @@ ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<'
 	return os; // You must return a reference to the stream!
 }
 
+template<typename T1 , typename T2> // NOTE: Templated functions must have their definition in the header file
+ostream& operator<<( ostream& os , const std::vector<std::pair<T1,T2>>& vec ) { // ostream '<<' operator for pair vectors
+	// NOTE: This function assumes that the ostream '<<' operator for T has already been defined
+	os << "[ ";
+	for (size_t i = 0; i < vec.size(); i++) {
+		os << "(" << std::get<0>( vec[i] ) << " , " << std::get<1>( vec[i] ) << ")" ;
+		if (i + 1 < vec.size()) { os << ", "; }
+	}
+	os << " ]";
+	return os; // You must return a reference to the stream!
+}
+
 template<typename T>
 size_t last_index( const std::vector<T>& vec ){  return vec.size() - 1;  }
 
@@ -1009,6 +1021,15 @@ std::vector<T> vec_minus_set( const std::vector<T>& vec , const std::set<T>& st 
 	size_t len = vec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( vec[i] , st ) ){  rtnVec.push_back( vec[i] );  }  }
 	return rtnVec;
+}
+
+template<typename T> 
+std::vector<T> vec_unique_only( const std::vector<T>& vec ){
+	// Return a copy of 'vec' with only unique elements
+	size_t len = vec.size();
+	std::set<T> st;
+	for( size_t i = 0 ; i < len ; i++ ){  st.insert( vec[i] );  }
+	return set_to_vec( st );
 }
 
 // _ End Sets _
