@@ -306,6 +306,18 @@ ostream& operator<<( ostream& os , const std::vector<std::pair<T1,T2>>& vec ) { 
 	return os; // You must return a reference to the stream!
 }
 
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+ostream& operator<<( ostream& os , const std::vector<std::pair<T,T>>& vec ) { // ostream '<<' operator for pair vectors
+	// NOTE: This function assumes that the ostream '<<' operator for T has already been defined
+	os << "[ ";
+	for (size_t i = 0; i < vec.size(); i++) {
+		os << "(" << std::get<0>( vec[i] ) << " , " << std::get<1>( vec[i] ) << ")" ;
+		if (i + 1 < vec.size()) { os << ", "; }
+	}
+	os << " ]";
+	return os; // You must return a reference to the stream!
+}
+
 template<typename T>
 size_t last_index( const std::vector<T>& vec ){  return vec.size() - 1;  }
 
