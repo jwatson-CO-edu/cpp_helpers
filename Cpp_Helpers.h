@@ -368,7 +368,9 @@ template<typename T> // NOTE: Templated functions must have their definition in 
 std::vector<T> vec_range( T lo , T hi ){
 	T i = 0;
 	std::vector<T> rtnVec;
-	if( lo < hi )
+	if( lo == hi ){
+		rtnVec = { lo };
+	}else if( lo < hi )
 		for( i = lo ; i <= hi ; i++ ){ rtnVec.push_back( i ); }
 	else
 		for( i = hi ; i >= lo ; i-- ){ rtnVec.push_back( i ); }
@@ -450,7 +452,9 @@ template<typename T> // NOTE: Templated functions must have their definition in 
 std::list<T> lst_range( T lo , T hi ){
 	T i = 0;
 	std::list<T> rtnVec;
-	if( lo < hi )
+	if( lo == hi ){
+		rtnVec.push_back( lo );
+	}else if( lo < hi )
 		for( i = lo ; i <= hi ; i++ ){ rtnVec.push_back( i ); }
 	else
 		for( i = hi ; i >= lo ; i-- ){ rtnVec.push_back( i ); }
