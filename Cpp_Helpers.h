@@ -632,6 +632,16 @@ std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdEle
 }
 
 template<typename T>
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std::vector<std::vector<T>>& holdVec ){
+	// vec_vec version // Would this be faster with a set?
+	std::vector<T> rtnVec = vec_copy( original );
+	size_t lenI = holdVec.size();
+	// Successively remove elements based on the contents of each vec in 'holdVec'
+	for( size_t i = 0 ; i < lenI ; i++ ){  rtnVec = vec_copy_without_elem( rtnVec , holdVec[i] );  }
+	return rtnVec;
+}
+
+template<typename T>
 std::vector<T> vec_copy_one_index( const std::vector<T>& original , size_t index ){
 	std::vector<T> rtnVec;
 	if( index < original.size() ){  rtnVec.push_back( original[ index ] );  }
@@ -952,39 +962,6 @@ std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , INT bgn , INT
 	}
 }
 
-// = Queues =
-
-// Empty the queue and discard all the values
-template<typename T> // NOTE: Templated functions must have their definition in the header file
-void erase_queue( std::queue<T>& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
-
-template<typename T> // NOTE: Templated functions must have their definition in the header file
-T queue_get_pop( std::queue<T>& Q ){ 
-	// Get the front item, then pop it
-	T temp = Q.front();
-	Q.pop();
-	return temp;
-}
-
-template<typename T> 
-void enqueue_vec( std::queue<T>& Q , const std::vector<T>& additions ){
-	size_t len = additions.size();
-	for( size_t i = 0 ; i < len ; i++ ){  Q.push( additions[i] );  }
-}
-
-template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
-T queue_get_pop( std::priority_queue< T , std::vector<T> , F >& Q ){ 
-	// Get the front item, then pop it
-	T temp = Q.top();
-	Q.pop();
-	return temp;
-}
-
-template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
-void erase_queue( std::priority_queue< T , std::vector<T> , F >& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
-
-// _ End Queue _
-
 
 // = Maps =
 
@@ -1049,6 +1026,59 @@ std::vector<T> vec_unique_only( const std::vector<T>& vec ){
 }
 
 // _ End Sets _
+
+// = Queues =
+
+// Empty the queue and discard all the values
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+void erase_queue( std::queue<T>& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+T queue_get_pop( std::queue<T>& Q ){ 
+	// Get the front item, then pop it
+	T temp = Q.front();
+	Q.pop();
+	return temp;
+}
+
+template<typename T> 
+void enqueue_vec( std::queue<T>& Q , const std::vector<T>& additions ){
+	size_t len = additions.size();
+	for( size_t i = 0 ; i < len ; i++ ){  Q.push( additions[i] );  }
+}
+
+template<typename T> 
+void enqueue_vec_not_in_set( std::queue<T>& Q , const std::vector<T>& additions , const std::set<T>& exclusions ){
+	size_t len = additions.size();
+	for( size_t i = 0 ; i < len ; i++ ){  
+		if( !is_arg_in_set( additions[i] , exclusions ) ){  Q.push( additions[i] );  }
+	}
+}
+
+template<typename T> 
+void enqueue_vec_not_in_either_set( std::queue<T>& Q , const std::vector<T>& additions , const std::set<T>& ex1 , const std::set<T>& ex2 ){
+	size_t len = additions.size();
+	for( size_t i = 0 ; i < len ; i++ ){  
+		if( 
+			( !is_arg_in_set( additions[i] , ex1 ) )
+				&&
+			( !is_arg_in_set( additions[i] , ex2 ) )
+		){  Q.push( additions[i] );  }
+	}
+}
+
+template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
+T queue_get_pop( std::priority_queue< T , std::vector<T> , F >& Q ){ 
+	// Get the front item, then pop it
+	T temp = Q.top();
+	Q.pop();
+	return temp;
+}
+
+template< typename T , typename F > // NOTE: Templated functions must have their definition in the header file
+void erase_queue( std::priority_queue< T , std::vector<T> , F >& Q ){    while( Q.size() > 0 ){  Q.pop();  }    }
+
+// _ End Queue _
 
 bool is_err( const std::vector<double>& vec ); // Return true if all of the elements are NaN, Otherwise return false
 
