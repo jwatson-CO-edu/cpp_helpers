@@ -294,6 +294,18 @@ ostream& operator<<( ostream& os , const std::vector<T>& vec ) { // ostream '<<'
 	return os; // You must return a reference to the stream!
 }
 
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+ostream& operator<<( ostream& os , const std::vector<std::vector<T>>& vecVec ) { // ostream '<<' operator for vectors
+	// NOTE: This function assumes that the ostream '<<' operator for T has already been defined
+	os << "[ ";
+	for (size_t i = 0; i < vecVec.size(); i++) {
+		os << "  " << vecVec[i];
+		if (i + 1 < vecVec.size()) { os << ", " << endl; }
+	}
+	os << " ]";
+	return os; // You must return a reference to the stream!
+}
+
 template<typename T1 , typename T2> // NOTE: Templated functions must have their definition in the header file
 ostream& operator<<( ostream& os , const std::vector<std::pair<T1,T2>>& vec ) { // ostream '<<' operator for pair vectors
 	// NOTE: This function assumes that the ostream '<<' operator for T has already been defined
@@ -325,7 +337,7 @@ template<typename T>
 T last_elem( const std::vector<T>& vec ){  return vec[ vec.size() - 1 ];  }
 
 template<typename T>
-std::vector<T> vec_copy( std::vector<T>& original ){
+std::vector<T> vec_copy( std::vector<T>& original ){ // NOTE: There is a const arg version as well
 	size_t len = original.size();
 	std::vector<T> rtnVec;
 	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( original[i] );  }
@@ -645,6 +657,13 @@ template<typename T>
 std::vector<T> vec_copy_one_index( const std::vector<T>& original , size_t index ){
 	std::vector<T> rtnVec;
 	if( index < original.size() ){  rtnVec.push_back( original[ index ] );  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_shuffled( const std::vector<T>& original ){
+	std::vector<T> rtnVec = vec_copy( original );
+	std::random_shuffle( rtnVec.begin() , rtnVec.end() );
 	return rtnVec;
 }
 

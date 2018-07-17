@@ -5,7 +5,7 @@ HEADER_TEMPLATE.h
 James Watson , YYYY MONTHNAME
 A ONE-LINE DESRIPTION OF THE FILE
 
-Template Version: 2018-06-06
+Template Version: 2018-07-16
 ***********/
 
 #ifndef HEADER_TEMPLATE_H // This pattern is to prevent symbols to be loaded multiple times
@@ -15,9 +15,9 @@ Template Version: 2018-06-06
 // ~ LIBNAME_i ~
 // ~ Local ~
 
-
 // ~~ Shortcuts and Aliases ~~
 
+// ~~ Constants ~~
 
 
 // === Classes and Structs =================================================================================================================
