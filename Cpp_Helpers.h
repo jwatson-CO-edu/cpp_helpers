@@ -96,14 +96,20 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
-struct IndexMultiResult{ // A container to hold a search result for an index that cannot have a negative value
+struct IndexMultiResult{ // A container to hold a search result for indices that cannot have negative values
 	bool /* -------- */ result; // Is the result a valid one?
 	std::vector<size_t> indices; //- If so, which is the index we like best?
 };
 
-struct IndexDbblResult{ // A container to hold a search result for an index that cannot have a negative value
+struct IndexDbblResult{ // A container to hold a search result for an index and some score for that index , No flag
 	size_t index; // - Which is the index we like best?
 	double measure; // How much do we like it?
+};
+
+struct IndexMatchResult{ // Container for the result of a search for a match and the indices representing the match
+	bool   match; // Was there a match found?
+	size_t sideA; // One half the match
+	size_t sideB; // Other half of match
 };
 
 // ~~ ID Numbers ~~
