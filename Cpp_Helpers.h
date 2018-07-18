@@ -987,6 +987,31 @@ std::vector<T> subvec_of_from_to( const std::vector<T>& superVec , INT bgn , INT
 	}
 }
 
+template<typename T>
+T most_numerous_value_in( const std::vector<T>& vec ){
+	// Return the value that appears the most number of times in 
+	// NOTE: If each value appears only once, then the first element will be returned
+	size_t len           = vec.size() ,
+		   greatestCount = 0 , 
+		   elemCount     = 0 ;
+	T      mostVal       = vec[0];
+	for( size_t i = 0 ; i < len ; i++ ){
+		elemCount = std::count( vec.begin() , vec.end() , vec[i] );
+		if( elemCount > greatestCount ){
+			greatestCount = elemCount;
+			mostVal       = vec[i];
+		}
+	}
+	return mostVal;
+}
+
+template<typename T>
+std::vector<size_t> all_indices_equal_to_val( const std::vector<T>& vec , T val ){
+	size_t len = vec.size();
+	std::vector<size_t> matchDices;
+	for( size_t i = 0 ; i < len ; i++ ){  if( vec[i] == val ){  matchDices.push_back( i );  }  }
+	return matchDices;
+}
 
 // = Maps =
 
