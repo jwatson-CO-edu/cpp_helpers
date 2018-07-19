@@ -112,6 +112,11 @@ struct IndexMatchResult{ // Container for the result of a search for a match and
 	size_t sideB; // Other half of match
 };
 
+struct IndexMatches{ // A container to hold a search result for an index that cannot have a negative value
+	size_t bestDex; // ------------ What is the best index?
+	std::vector<size_t> indices; // Which indices are friends with 'bestDex'?
+};
+
 // ~~ ID Numbers ~~
 
 struct IDSearchResult{ // A container to hold a search result for an ID that can be negative
