@@ -644,6 +644,15 @@ std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std
 }
 
 template<typename T>
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std::set<T>& holdout ){
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( original[i] , holdout ) ){  rtnVec.push_back( original[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
 std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdElem , const std::vector<T>& holdVec ){
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
