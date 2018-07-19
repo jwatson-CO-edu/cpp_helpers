@@ -644,15 +644,6 @@ std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std
 }
 
 template<typename T>
-std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std::set<T>& holdout ){
-	// NOTE: This function assumes that the equality operator is defined for type T
-	size_t len = original.size();
-	std::vector<T> rtnVec;
-	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( original[i] , holdout ) ){  rtnVec.push_back( original[i] );  }  }
-	return rtnVec;
-}
-
-template<typename T>
 std::vector<T> vec_copy_without_elem( const std::vector<T>& original , T holdElem , const std::vector<T>& holdVec ){
 	// NOTE: This function assumes that the equality operator is defined for type T
 	size_t len = original.size();
@@ -1072,11 +1063,20 @@ std::vector<T> set_to_vec( const std::set<T>& st ){
 }
 
 template<typename T> 
-std::vector<T> vec_minus_set( const std::vector<T>& vec , const std::set<T>& st ){
+std::vector<T> vec_minus_set( const std::vector<T>& vec , const std::set<T>& st ){ // This is an alias of the below , sorry
 	// Return a vector of all the elements of 'vec' NOT in 'st'
 	std::vector<T> rtnVec;
 	size_t len = vec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( vec[i] , st ) ){  rtnVec.push_back( vec[i] );  }  }
+	return rtnVec;
+}
+
+template<typename T>
+std::vector<T> vec_copy_without_elem( const std::vector<T>& original , const std::set<T>& holdout ){ // This is an alias of the above , sorry
+	// NOTE: This function assumes that the equality operator is defined for type T
+	size_t len = original.size();
+	std::vector<T> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  if( !is_arg_in_set( original[i] , holdout ) ){  rtnVec.push_back( original[i] );  }  }
 	return rtnVec;
 }
 
