@@ -16,7 +16,7 @@ Template Version: 2017-05-26
 #endif
 
 #include <string> // --- string manipulation
-#include <cstdio> // --- printf
+#include <cstdio> // --- printf , getchar
 #include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
 #include <limits> // --- Infinity
 #include <stdlib.h> // - srand, rand 
@@ -178,6 +178,8 @@ void sep( string title = "" , size_t width = 6 , char dingbat = '=' ); // Print 
 void newline(); //  print a new line
 
 string yesno( bool condition );
+
+void waitkey();
 
 // __ End Debug __
 

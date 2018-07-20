@@ -34,6 +34,8 @@ void newline(){ cout << endl; } // print a new line
 
 string yesno( bool condition ){  return ( condition ? "YES" : "NO" );  }
 
+void waitkey(){  cout << "Press any key to continue...\n";  getchar();  }
+
 // __ End Debug __
 
 
