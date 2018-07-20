@@ -53,7 +53,8 @@ Template Version: 2017-05-26
 
 // ~ Standard Shortcuts ~ // This is only for names that are unlikely to be shadowed
 using std::cout; // ------- output to terminal
-using std::cerr; // ------- Unbuffered terminal output
+using std::cerr; // ------- Unbuffered terminal output , std::cerr automatically flushes all output as soon as it is written?
+using std::clog; // ------- Unbuffered terminal output
 using std::endl; // ------- newline
 using std::cin; // -------- input from terminal
 using std::ifstream; // --- File Input streams
