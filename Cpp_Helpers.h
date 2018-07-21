@@ -348,7 +348,7 @@ template<typename T>
 size_t last_index( const std::vector<T>& vec ){  return vec.size() - 1;  }
 
 template<typename T>
-T last_elem( const std::vector<T>& vec ){  return vec[ vec.size() - 1 ];  }
+T last_elem( const std::vector<T>& vec ){  return vec[ vec.size() - 1 ];  } // NOTE: This function assumes there is at least one element
 
 template<typename T>
 std::vector<T> vec_copy( std::vector<T>& original ){ // NOTE: There is a const arg version as well
