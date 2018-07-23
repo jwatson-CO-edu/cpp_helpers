@@ -34,7 +34,27 @@ void newline(){ cout << endl; } // print a new line
 
 string yesno( bool condition ){  return ( condition ? "YES" : "NO" );  }
 
-void waitkey(){  cout << "Press any key to continue...\n";  getchar();  }
+void waitkey(){  
+	cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	cout << "BREAKPOINT: Press [Enter] to continue...\n";  
+	getchar();  
+}
+
+void waitkey( bool condition ){
+	if( condition ){
+		cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		cout << "BREAKPOINT: Press [Enter] to continue...\n";  
+		getchar();
+	}
+}
+
+void waitkey( bool condition , string message ){
+	if( condition ){
+		cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+		cout << "BREAKPOINT: " << message << " , Press [Enter] to continue...\n";  
+		getchar();
+	}
+}
 
 // __ End Debug __
 

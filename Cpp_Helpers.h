@@ -181,6 +181,8 @@ void newline(); //  print a new line
 string yesno( bool condition );
 
 void waitkey();
+void waitkey( bool condition );
+void waitkey( bool condition , string message );
 
 // __ End Debug __
 
@@ -1188,6 +1190,14 @@ void clearif( std::vector<T*>& vec ){
 	size_t len = vec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  delif( vec[i] );  }
 	vec.clear();
+}
+
+template<typename T>
+void clearif( std::list<T*>& lst ){
+	// Delete a list of pointers, Then clear the list
+	typename std::list<T*>::iterator it;
+	for( it = lst.begin() ; it != lst.end() ; ++it ){  delif( *it );  }
+	lst.clear();
 }
 
 // ___ End Memory ___
