@@ -1252,6 +1252,9 @@ auto checkAndUpdateBest = [&]( Eigen::Vector3d direction ){
 	}
 }; // NOTE: Lambda expression must end with a semicolon
 
+bool SHOWDEBUG = true  , // if( SHOWDEBUG ){  cout << "" << endl;  }
+     BREAKPNTS = false ; // if( BREAKPNTS ){  waitkey( CONDITION , "MSG" );  }
+
   __ End Parts __________________________________________________________________________________________________________________________ */
   
   
