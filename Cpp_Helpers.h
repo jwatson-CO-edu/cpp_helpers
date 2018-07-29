@@ -1149,7 +1149,11 @@ void erase_queue( std::priority_queue< T , std::vector<T> , F >& Q ){    while( 
 
 // _ End Queue _
 
+std::vector<double> err_vec( size_t len );
+
 bool is_err( const std::vector<double>& vec ); // Return true if all of the elements are NaN, Otherwise return false
+
+std::vector<std::vector<size_t>> enumerate_in_base( size_t digits , size_t base );
 
 // __ End Container __
 

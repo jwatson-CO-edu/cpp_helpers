@@ -366,11 +366,43 @@ std::vector<std::vector<double>> vec_vec_dbbl_zeros( size_t len ){
 	return rtnVecVec;
 }
 
+std::vector<double> err_vec( size_t len ){
+	std::vector<double> rtnErr;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnErr.push_back( nan("") );  }
+	return rtnErr;
+}
+
 bool is_err( const std::vector<double>& vec ){
 	// Return true if all of the elements are NaN, Otherwise return false
 	size_t len = vec.size();
 	for( size_t i = 0 ; i < len ; i++ ){  if( !isnan( vec[i] ) ){ return false; }  }
 	return true;
+}
+
+std::vector<std::vector<size_t>> enumerate_in_base( size_t digits , size_t base ){
+	// Return all possible combinations of digits in 'base' that have 'digits'
+	std::vector<std::vector<size_t>> rtnVecVec;
+	// Basement Case: User asked for no digits
+	if( digits == 0 ){  return rtnVecVec;  }
+	// Base Case: There is only one digit , Count from 0 to 'base'-1
+	if( digits == 1 ){
+		for( size_t i = 0 ; i < base ; i++ ){
+			std::vector<size_t> temp = { i };
+			rtnVecVec.push_back( temp );
+		}
+		return rtnVecVec;
+	}
+	// Recursive Case: There is more than 1 digit , Generate leading digits and append trailing digits
+	// 1. Fetch trailing digits
+	std::vector<std::vector<size_t>> trailingDigits = enumerate_in_base( digits-1 , base );
+	size_t /* ------------------- */ trLen /* -- */ = trailingDigits.size();
+	std::vector<size_t> /* ------ */ leadingDigit;
+	// 2. Generate leading digits and append trailing digits
+	for( size_t i = 0 ; i < base ; i++ ){
+		leadingDigit = { i };
+		for( size_t j = 0 ; j < trLen ; j++ ){  rtnVecVec.push_back(  vec_join( leadingDigit , trailingDigits[j] )  );  }
+	}
+	return rtnVecVec;
 }
 
 // __ End Container __
