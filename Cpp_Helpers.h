@@ -78,9 +78,11 @@ using std::sort; // ------- Get it sorted
 // ~ Type Aliases ~ // Use this for long type names and names that are unlikley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
 using llin = long long int; // ---- big ints              // Requires C++11
+using uint = unsigned int; // ----- unsigned ints
 
 // ~ Constants ~
-#define EPSILON 1e-8d // ---------- Margin too small to care about
+#define EPSILON 1e-8d // ---------- Margin too small to care about , double
+#define EPSLNFL 1e-4d // ---------- Margin too small to care about , float
 #define BILLION 1000000000L // ---- ONE BILLION
 double const INFTY_D   = std::numeric_limits<double>::infinity();
 double const BILLION_D = 1e9;
@@ -207,6 +209,9 @@ std::vector<double> randrange_vec( double lo , double hi , size_t len );
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
+
+template<typename T> // NOTE: Templated functions must have their definition in the header file
+bool eqf( T op1 , T op2 ){ return ( (float) abs( op1 - op2 ) ) < EPSLNFL; }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eq( T op1 , T op2 , T eps ){ return ( abs( op1 - op2 ) ) < eps; }

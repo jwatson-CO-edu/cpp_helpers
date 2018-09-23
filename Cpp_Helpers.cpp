@@ -158,7 +158,7 @@ void remove_all( string& rawStr , char keyChar ){ // Destructively remove all in
 void strip_newlines( string& rawStr ){ remove_all( rawStr , '\r' ); remove_all( rawStr , '\n' ); }
 
 string strip_after_dot( string fName ){ // Return a copy of 'fName' with the first period and all following characters removed
-	int index = 0; string rtnStr = "";
+	size_t index = 0; string rtnStr = "";
 	while( fName[index] != '.' && index < fName.size() ){ // While not period and string remains
 		rtnStr += fName[index]; // add the char at index and increment index
 		index++; 
