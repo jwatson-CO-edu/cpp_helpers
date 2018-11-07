@@ -59,7 +59,16 @@ void waitkey( bool condition , string message ){
 // __ End Debug __
 
 
+// == Logic / Control Tools ==
+
+void toggle( bool& bit ){  bit = !bit;  }
+
+// __ End Logic / Ctrl __
+
+
 // == Math Tools ==
+
+void rand_init(){  srand( time( NULL ) );  }
 
 float rand_float(){ return (float)  rand() / (float)RAND_MAX; }
 
@@ -73,14 +82,6 @@ size_t randrange( size_t end ){ return (size_t)( rand() % end ); }
 // NOTE: 'randrange' functions do not actually check if range bounds are in the proper order
 
 int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) ); }
-
-double randrange( double lo , double hi ){ return lo + (double) rand() * ( hi - lo ); }
-
-std::vector<double> randrange_vec( double lo , double hi , size_t len ){
-	std::vector<double> rtnVec;
-	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( randrange( lo , hi ) );  }
-	return rtnVec;
-}
 
 usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // --- Return the nth triangular number
 size_t tri_num( size_t n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number

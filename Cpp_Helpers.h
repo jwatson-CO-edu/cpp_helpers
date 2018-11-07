@@ -189,7 +189,16 @@ void waitkey( bool condition , string message );
 // __ End Debug __
 
 
+// == Logic / Control Tools ==
+
+void toggle( bool& bit );
+
+// __ End Logic / Ctrl __
+
+
 // == Math Tools ==
+
+void rand_init();
 
 float rand_float(); // Note that this is not exactly uniformly distributed
 
@@ -203,9 +212,15 @@ size_t randrange( size_t end );
 
 int randrange( int bgn , int end );
 
-double randrange( double lo , double hi );
+template<typename FLT>
+FLT randrange( FLT lo , FLT hi ){ return (FLT) min( lo , hi ) + (FLT) rand_dbbl() * abs( hi - lo ); }
 
-std::vector<double> randrange_vec( double lo , double hi , size_t len );
+template<typename FLT>
+std::vector<FLT> randrange_vec( FLT lo , FLT hi , size_t len ){
+	std::vector<FLT> rtnVec;
+	for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( randrange( lo , hi ) );  }
+	return rtnVec;
+}
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
@@ -232,6 +247,14 @@ bool is_even( T number ){  return ( number % (T)2 ) == 0;  }
 
 template <typename T> 
 bool is_odd( T number ){  return ( number % (T)2 ) != 0;  }
+
+template <typename T> 
+T clamp_val( T val , T minm , T maxm ){
+	// NOTE: std::clamp is available since C++17 , https://en.cppreference.com/w/cpp/algorithm/clamp
+	if( val < minm ) return minm;
+	if( val > maxm ) return maxm;
+	return val;
+}
 
 // __ End Math __
 
