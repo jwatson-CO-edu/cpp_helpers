@@ -967,6 +967,9 @@ std::vector<T> operator*( const std::vector<T>& opVec , T opScl ){
 	return rtnVec;
 }
 
+template<typename TFLT1 , typename TFLT2>
+std::vector<TFLT1> operator*( const std::vector<TFLT1>& opVec , TFLT2 opScl ){  return opVec * (TFLT1)opScl;  }
+
 template<typename T>
 std::vector<T> operator-( const std::vector<T>& op1 , const std::vector<T>& op2 ){
 	// Element-wise subtraction of op1 - op2
