@@ -81,7 +81,7 @@ using llin = long long int; // ---- big ints              // Requires C++11
 using uint = unsigned int; // ----- unsigned ints
 
 // ~ Constants ~
-#define EPSILON 1e-8d // ---------- Margin too small to care about , double
+#define EPSLNDB 1e-8d // ---------- Margin too small to care about , double
 #define EPSLNFL 1e-4d // ---------- Margin too small to care about , float
 #define BILLION 1000000000L // ---- ONE BILLION
 double const INFTY_D   = std::numeric_limits<double>::infinity();
@@ -223,7 +223,7 @@ std::vector<FLT> randrange_vec( FLT lo , FLT hi , size_t len ){
 }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
-bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSILON; }
+bool eq( T op1 , T op2 ){ return ( (double) abs( op1 - op2 ) ) < EPSLNDB; }
 
 template<typename T> // NOTE: Templated functions must have their definition in the header file
 bool eqf( T op1 , T op2 ){ return ( (float) abs( op1 - op2 ) ) < EPSLNFL; }
@@ -232,7 +232,7 @@ template<typename T> // NOTE: Templated functions must have their definition in 
 bool eq( T op1 , T op2 , T eps ){ return ( abs( op1 - op2 ) ) < eps; }
 
 template < typename T , typename U >
-bool eq( T op1 , U op2 ){ return ( abs( (double)op1 - (double)op2 ) ) < EPSILON; }
+bool eq( T op1 , U op2 ){ return ( abs( (double)op1 - (double)op2 ) ) < EPSLNDB; }
 
 usll tri_num( usll n );
 size_t tri_num( size_t n );
