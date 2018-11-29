@@ -303,6 +303,7 @@ bool str_has_sub( string bigStr , string subStr ); // Return true if 'bigStr' co
 bool isnewline( char queryChar ); // Return true if the char is a newline , Otherwise return false
 
 std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator ); // Return a vector of doubles between 'separator'
+stdvec<float> tokenize_to_float_w_separator( string rawStr , char separator ); // Return a vector of floats between 'separator'
 
 // __ End String __
 

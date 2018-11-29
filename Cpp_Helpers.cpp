@@ -245,7 +245,7 @@ stdvec<float> tokenize_to_float_w_separator( string rawStr , char separator ){
 			}else{ // else the character is a separator, process the previous token
             //~ else: # 
                 //~ tokens.append( evalFunc( currToken ) ) # 
-                tokens.push_back( strtof( currToken.c_str() ) ); // transform token and append to the token list
+                tokens.push_back( strtof( currToken.c_str() , NULL ) ); // transform token and append to the token list
                 //~ currToken = '' # 
                 currToken = ""; // reset the current token
 			}
