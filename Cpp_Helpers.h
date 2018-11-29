@@ -19,7 +19,7 @@ Template Version: 2017-05-26
 #include <cstdio> // --- printf , getchar
 #include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
 #include <limits> // --- Infinity
-#include <stdlib.h> // - srand, rand 
+#include <stdlib.h> // - srand , rand , atof , strtof
 #include <time.h> // --- time , for getting sys time and seeding random numbers
 #include <ctime> // ---- time , for date formatting
 #include <time.h> /* for clock_gettime */
@@ -79,6 +79,10 @@ using std::sort; // ------- Get it sorted
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11
 using llin = long long int; // ---- big ints              // Requires C++11
 using uint = unsigned int; // ----- unsigned ints
+
+// ~ Alias Templates ~ 
+// URL: http://www.enseignement.polytechnique.fr/informatique/INF478/docs/Cpp/en/cpp/language/type_alias.html
+template<class T> using stdvec = std::vector<T>;
 
 // ~ Constants ~
 #define EPSLNDB 1e-8d // ---------- Margin too small to care about , double
@@ -264,6 +268,8 @@ T clamp_val( T val , T minm , T maxm ){
 bool file_exists( const string& fName );  // Return true if the file exists , otherwise return false
 
 std::vector<string> readlines( string path ); // Return all the lines of text file as a string vector
+
+void printlines( const std::vector<string>& lines ); // Print all the lines read from a file
 
 string timestamp();
 

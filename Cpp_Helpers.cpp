@@ -111,6 +111,12 @@ std::vector<string> readlines( string path ){ // Return all the lines of text fi
 	return rtnVec;
 }
 
+void printlines( const std::vector<string>& lines ){
+    // Print all the lines read from a file
+    size_t len = lines.size();
+    for( size_t i = 0 ; i < len ; i++ ){  cerr << lines[i] << endl;  } // unbuffered dump
+}
+
 string timestamp(){
 	// Return a timestamp suitable for filenames
 	// URL: http://www.cplusplus.com/forum/beginner/32329/#msg174653
@@ -206,6 +212,40 @@ std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator
             //~ else: # 
                 //~ tokens.append( evalFunc( currToken ) ) # 
                 tokens.push_back( atof( currToken.c_str() ) ); // transform token and append to the token list
+                //~ currToken = '' # 
+                currToken = ""; // reset the current token
+			}
+		} //~ # else is whitespace, ignore
+	}
+    //~ if currToken: # If there is data in 'currToken', process it
+    if( currToken.length() > 0 )
+        //~ tokens.append( evalFunc( currToken ) ) # transform token and append to the token list
+        tokens.push_back( atof( currToken.c_str() ) ); // transform token and append to the token list
+    //~ return tokens
+    return tokens;
+}
+
+stdvec<float> tokenize_to_float_w_separator( string rawStr , char separator ){ 
+	// Return a vector of doubles between 'separator'
+	size_t len = rawStr.length();
+	//~ tokens = [] # 
+	std::vector<float> tokens; // list of tokens to return
+    //~ currToken = '' # 
+    string currToken = ""; // the current token, built a character at a time
+    char currChr;
+    //~ for char in rawStr: # for each character of the input string
+    for( size_t i = 0 ; i < len ; i++ ){
+		currChr = rawStr[i];
+        //~ if not char.isspace(): # 
+        if( !isspace( currChr ) && !isnewline( currChr ) ){ // if the current char is not whitespace, process
+            //~ if not char == separator: # if the character is not a separator, then
+            if( !( currChr == separator ) ){
+                //~ currToken += char # accumulate the char onto the current token
+                currToken += currChr;
+			}else{ // else the character is a separator, process the previous token
+            //~ else: # 
+                //~ tokens.append( evalFunc( currToken ) ) # 
+                tokens.push_back( strtof( currToken.c_str() ) ); // transform token and append to the token list
                 //~ currToken = '' # 
                 currToken = ""; // reset the current token
 			}
