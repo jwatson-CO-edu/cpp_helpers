@@ -1011,6 +1011,22 @@ std::vector<T>& operator+=( std::vector<T>& opLeft , T opRght ){
 }
 
 template<typename T>
+std::vector<T>& operator+=( std::vector<T>& opLeft , std::vector<T>& opRght ){
+	size_t len = min( opLeft.size() , opRght.size() );
+	for( size_t i = 0 ; i < len ; i++ ){  opLeft[i] += opRght[i];  }
+	return opLeft;
+}
+
+template<typename T>
+std::vector<T> clamp_vec( std::vector<T>& raw , T lower , T upper ){
+    // Clamp each value in 'raw' to within 'lower' and 'upper'
+    stdvec<T> rtnVec;
+    size_t    len = raw.size();
+    for( size_t i = 0 ; i < len ; i++ ){  rtnVec.push_back( clamp_val( raw[i] , lower , upper ) );  }
+    return rtnVec;
+}
+
+template<typename T>
 std::vector<T> abs( const std::vector<T>& op1 ){
 	// Element-wise absolute value: abs( op1[i] ) 
 	std::vector<T> rtnVec;

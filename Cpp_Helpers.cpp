@@ -19,7 +19,7 @@ IDSearchResult default_ID_search_rs(){  return IDSearchResult{ false , 0 };  } /
 // == Debug Tools ==
 
 void assert_report( bool assertion , string report ) { // Reporting wrapper for 'assert'
-	if ( !assertion ) { cout << endl << report << endl; } // if an assert will trigger, print BEFORE
+	if ( !assertion ) { cerr << endl << report << endl; } // if an assert will trigger, print BEFORE
 	assert( assertion ); // crash if necessary
 }
 
