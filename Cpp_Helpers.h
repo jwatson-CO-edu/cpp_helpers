@@ -1012,6 +1012,8 @@ std::vector<T>& operator+=( std::vector<T>& opLeft , T opRght ){
 
 template<typename T>
 std::vector<T>& operator+=( std::vector<T>& opLeft , std::vector<T>& opRght ){
+    // Element-wise add-assign 'opLeft'
+    // NOTE: Add-assign operations are only carried out through shared number of elements
 	size_t len = min( opLeft.size() , opRght.size() );
 	for( size_t i = 0 ; i < len ; i++ ){  opLeft[i] += opRght[i];  }
 	return opLeft;
