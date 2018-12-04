@@ -103,6 +103,8 @@ struct IndexSearchResult{ // A container to hold a search result for an index th
 	size_t index; //- If so, which is the index we like best?
 };
 
+IndexSearchResult default_false_result();
+
 struct IndexMultiResult{ // A container to hold a search result for indices that cannot have negative values
 	bool /* -------- */ result; // Is the result a valid one?
 	std::vector<size_t> indices; //- If so, which is the index we like best?
@@ -111,6 +113,11 @@ struct IndexMultiResult{ // A container to hold a search result for indices that
 struct IndexDbblResult{ // A container to hold a search result for an index and some score for that index , No flag
 	size_t index; // - Which is the index we like best?
 	double measure; // How much do we like it?
+};
+
+struct IndexFloatResult{ // A container to hold a search result for an index and some score for that index , No flag
+	size_t index; // - Which is the index we like best?
+	float  measure; // How much do we like it?
 };
 
 struct IndexMatchResult{ // Container for the result of a search for a match and the indices representing the match
@@ -130,6 +137,8 @@ struct IDSearchResult{ // A container to hold a search result for an ID that can
 	bool result; // Is the result a valid one?
 	llin ID; // --- If so, which is the index we like best?
 };
+
+IDSearchResult default_ID_search_rs();
 
 struct IDScoreLookup{ // A cheap, sequential "associative array" relating IDs to scores
 	std::vector<llin>   IDvec; // -- Vector of ID numbers
@@ -168,8 +177,7 @@ struct IndexSuccesLookup{ // A cheap, sequential "associative array" relating in
 
 // == Struct Helpers ==
 
-IndexSearchResult default_false_result();
-IDSearchResult    default_ID_search_rs();
+
 
 // __ End Helpers __
 
