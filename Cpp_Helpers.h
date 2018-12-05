@@ -113,11 +113,13 @@ struct IndexMultiResult{ // A container to hold a search result for indices that
 struct IndexDbblResult{ // A container to hold a search result for an index and some score for that index , No flag
 	size_t index; // - Which is the index we like best?
 	double measure; // How much do we like it?
+    bool   result; //- Did we find it?
 };
 
 struct IndexFloatResult{ // A container to hold a search result for an index and some score for that index , No flag
 	size_t index; // - Which is the index we like best?
 	float  measure; // How much do we like it?
+    bool   result; //- Did we find it?
 };
 
 struct IndexMatchResult{ // Container for the result of a search for a match and the indices representing the match
