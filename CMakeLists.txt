@@ -1,19 +1,22 @@
-# SUBLEVEL CMAKELISTS
-
 # ~ Project Setup ~
-cmake_minimum_required( VERSION 2.6 )
+cmake_minimum_required( VERSION 3.0 )
 project( cpp_helpers )
 
 # ~ Build Settings ~
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") # This will prevent g++ from getting upset about default values
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17") # This will prevent g++ from getting upset about default values
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/lib" )
+message( "Source Dir: __  ${PROJECT_SOURCE_DIR}" )
+message( "Static Lib Dir: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}" )
 
 # ~ Source Dirs ~
-#~ add_subdirectory( src ) # Or where you keep all the source files
-#~ add_subdirectory( cpp_helpers ) # Or where you keep all the source files
-#~ set( CPP_HELP_CPP cpp_helpers/Cpp_Helpers.cpp )
+# add_subdirectory( basic )
+include_directories( basic )
+set( CPP_HELP_CPP basic/Cpp_Helpers.cpp )
+set( CPP_HELP_HPP basic/Cpp_Helpers.hpp )
 
-# ~~~ EXEC_TITLE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# add_subdirectory( containers )
 
-#~ add_executable( EXEC_NAME MAIN.cpp SUPPORTING_ETC.cpp )
+# ~~~ LIBS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#~ target_link_libraries( EXEC_NAME ${LIBPATH1} ${LIBPATH2} )
+add_library( cpp_helpers STATIC ${CPP_HELP_CPP} ${CPP_HELP_HPP} )
+message( "Sent target to ${ARCHIVE_OUTPUT_DIRECTORY}" )
