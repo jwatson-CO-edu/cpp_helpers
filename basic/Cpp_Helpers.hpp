@@ -2,81 +2,66 @@
 
 /***********  
 Cpp_Helpers.h
-James Watson , 2017 March
+James Watson , 2020-11
 Shortcuts and Aliases , and Functions of general use for C++ programming
-
-Template Version: 2017-05-26
 ***********/
 
 #ifndef CPPHELPERS_H
 #define CPPHELPERS_H
 
-#if defined(unix) || defined(__unix__) || defined(__unix)
-    #define IS_LINUX
-#endif
+/********* Includes *********/
 
+/*** Types & Limits ***/
 #include <string> // --- string manipulation
-#include <cstdio> // --- printf , getchar
-#include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
-#include <limits> // --- Infinity
-#include <stdlib.h> // - srand , rand , atof , strtof
-#include <time.h> // --- time , for getting sys time and seeding random numbers
-#include <ctime> // ---- time , for date formatting
-#include <time.h> /* for clock_gettime */
-#include <chrono> // more different time 
-#include <stdint.h> /* for uint64 definition */
-#include <limits> // --- number limits of data types, limit on 'cin.ignore'
-#include <ctype.h> // -- type tests
-#include <cassert> // -- input/condition verification
-//#define NDEBUG // ---- uncomment to disable assert()
-#include <stdexcept> //- std errors
-
 #include <vector> // --------- standard vector datatype , the friendly array } Data Structures
 #include <list> // ----------- standard list datatype                       /
-#include <map> // ------------ dictionaries                                /
 #include <set> // ------------ sets                                       /
-#include <algorithm> // ------ Searching structures , sort               /
-#include <queue> // ---------- Priority Queue                           /
-#include <utility> // -------- Pair , pair get , swap                  /
-#include <initializer_list> // Pass array literals to funcs __________/
+#include <ctype.h> // -- type tests
+#include <stdint.h> /* for uint64 definition */
+#include <limits> // --- number limits of data types, limit on 'cin.ignore'
 
+/*** I/O & Files ***/
+#include <cstdio> // --- printf , getchar
 #include <iostream> // - standard input and output , istream } Input / Output
 #include <fstream> // -- File I/O                           /
 #include <sstream> // -- Text streams                      /
 #include <sys/stat.h> // File status _____________________/
 #include <filesystem>
 
-namespace fs = std::filesystem;
+/*** Math, Algos, & Time ***/
+#include <cmath> // ---- abs, min/max, trig, hyperbolic, power, exp, error, rounding
+#include <algorithm> // ------ Searching structures , sort               /
+#include <stdlib.h> // - srand , rand , atof , strtof
+#include <time.h> // --- time , for getting sys time and seeding random numbers
+#include <ctime> // ---- time , for date formatting
+#include <chrono> // more different time 
 
+/*** Error Handling ***/
+#include <cassert> // -- input/condition verification
+//#define NDEBUG // ---- uncomment to disable assert()
+#include <stdexcept> //- std errors
+
+
+/********* Shortcuts & Aliases *********/
+
+/*** Names ***/
+namespace fs = std::filesystem;
 typedef  std::chrono::steady_clock::time_point  StdTime;
 typedef  std::chrono::steady_clock              StdClock;
 
-// == Shortcuts and Aliases ==
+/*** Standard Shortcuts ***/ 
+// This is only for names that are unlikely to be shadowed
 
-// ~ Standard Shortcuts ~ // This is only for names that are unlikely to be shadowed
 using std::cout; // ------- output to terminal
-using std::cerr; // ------- Unbuffered terminal output , std::cerr automatically flushes all output as soon as it is written?
-using std::clog; // ------- Unbuffered terminal output
 using std::endl; // ------- newline
 using std::cin; // -------- input from terminal
+
+using std::vector;
+using std::string; // ----- strings!           // Requires C++11
+
 using std::ifstream; // --- File Input streams
 using std::ofstream; // --- File Output streams
-using std::ostream; // ---- Output streams
-using std::stringstream; // String streams
-using std::string; // ----- strings!           // Requires C++11
-using std::to_string; // -- string conversion  // Requires C++11
-using std::min; // -------- 'min' function
-using std::max; // -------- 'max' function
-using std::abs; // -------- Absolute value
-using std::pow; // -------- Exponents
-using std::ceil; // ------- Ceiling
-using std::round; // ------ To nearest integer
-using std::isnan; // ------ NaN Test
-using std::isinf; // ------ Infinity Test
-using std::printf; // ----- Our fave printing function from C
-using std::swap; // ------- Swap 2 values , per CS 100
-using std::sort; // ------- Get it sorted
-using std::vector;
+
 using std::chrono::duration_cast; 
 using std::chrono::microseconds;
 
@@ -92,11 +77,9 @@ using uint = unsigned int; // ----- unsigned ints
 double const INFTY_D   = std::numeric_limits<double>::infinity();
 double const BILLION_D = 1e9;
 
-// __ End Shortcuts __
 
-// == Debug Tools ==
 
-double time_elapsed( StdTime& clok ); // Get the elapsed time
+/************************************ Debug Tools ************************************/
 
 void print_args( int argc, char *argv[] );
 
@@ -112,17 +95,15 @@ void sep_dbg(); // Print a separator for debug information
 
 void sep( string title = "" , size_t width = 6 , char dingbat = '~' ); // Print a separating title card for debug 
 
-// __ End Debug __
 
 
-// == Logic / Control Tools ==
+/************************************ Logic / Control Tools ************************************/
 
 void toggle( bool& bit );
 
-// __ End Logic / Ctrl __
 
 
-// == Math Tools ==
+/************************************ Math ************************************/
 
 void random_seed_RUN_ONCE_MAIN(); // init random
 
@@ -175,10 +156,9 @@ T clamp_val( T val , T minm , T maxm ){
     return val;
 }
 
-// __ End Math __
 
 
-// == File Tools ==
+/************************************ Files ************************************/
 
 bool check_exist( string path , string check );
 
@@ -192,10 +172,9 @@ string timestamp();
 
 string get_file_string( string path ); // Get the contents of the file at `path` as a string
 
-// __ End File __
 
 
-// == String Tools ==
+/************************************ Strings ************************************/
 
 // print the binary representation of a uint
 void print_binary_int( unsigned int arg ); 
@@ -225,14 +204,13 @@ vector<float> tokenize_to_float_w_separator( string rawStr , char separator ); /
 
 vector<string> split( string s , char sep );
 
-
-
 bool has_substr( string& superStr , string& subStr );
 
-// __ End String __
 
 
-// == Timing ==
+/************************************ Timing & Benchmarking ************************************/
+
+/********* Classes *********/
 
 class StopWatch{
     
@@ -252,10 +230,13 @@ protected:
     
 };
 
-// __ End Timing __
+/********* Functions *********/
+
+double time_elapsed( StdTime& clok ); // Get the elapsed time
 
 
-// == Container Tools ==
+
+/************************************ Containers ************************************/
 
 vector<size_t> vec_index_zeros( size_t len );
 
@@ -288,19 +269,17 @@ vector<T> vec_copy( const vector<T>& original ){
     return rtnVec;
 }
 
-
-
 vector<double> err_vec( size_t len );
 
 bool is_err( const vector<double>& vec ); // Return true if all of the elements are NaN, Otherwise return false
 
 vector<vector<size_t>> enumerate_in_base( size_t digits , size_t base );
 
-// __ End Container __
 
-// === Functors ===
 
-// == class Incrementer ==
+/************************************ Functors ************************************/
+
+/****** class Incrementer *****/
 
 class Incrementer{
 public:
@@ -310,12 +289,9 @@ protected:
     llin count;
 };
 
-// __ End Incrementer __
-
-// ___ End Functors ___
 
 
-// === Memory Utils ===
+/************************************ Memory & Pointers ************************************/
 
 string pointer_info_str( void* generalPointer );
 
@@ -404,14 +380,5 @@ bool SHOWDEBUG = true  , // if( SHOWDEBUG ){  cout << "" << endl;  }
   
 /* == Spare Parts ==========================================================================================================================
 
-template<typename T>
-size_t vec_wrap_index( vector<T> vec , llin rawIndex ){
-    size_t vecLen = vec.size();
-    if( rawIndex >= 0 ){
-        return rawIndex % vecLen;
-    } else {
-        
-    }
-}
 
  __ End Parts ___________________________________________________________________________________________________________________________ */
