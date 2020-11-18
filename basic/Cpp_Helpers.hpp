@@ -55,15 +55,20 @@ typedef  std::chrono::steady_clock              StdClock;
 using std::cout; // ------- output to terminal
 using std::endl; // ------- newline
 using std::cin; // -------- input from terminal
+using std::cerr; 
 
 using std::vector;
 using std::string; // ----- strings!           // Requires C++11
+using std::to_string;
 
 using std::ifstream; // --- File Input streams
 using std::ofstream; // --- File Output streams
+using std::ostream; // stdout
 
 using std::chrono::duration_cast; 
 using std::chrono::microseconds;
+
+using std::isnan;
 
 // ~ Type Aliases ~ // Use this for long type names and names that are unlikley to be shadowed
 using usll = unsigned long long; // big ints ( unsigned ) // Requires C++11

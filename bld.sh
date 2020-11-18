@@ -21,6 +21,20 @@ else
     echo "Found ./lib ..."
 fi
 
+if [ ! -d "bin" ]; then
+    echo "./bin missing, create ..."
+    mkdir bin # Create the build directory
+else
+    echo "Found ./bin ..."
+fi
+
+if [ ! -d "include" ]; then
+    echo "./include missing, create ..."
+    mkdir include # Create the build directory
+else
+    echo "Found ./include ..."
+fi
+
 echo "Ready to compile!"
 echo
 

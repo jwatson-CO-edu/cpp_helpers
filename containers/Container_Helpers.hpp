@@ -5,9 +5,17 @@
 #include <iostream>
 #include <list> // ----------- standard list datatype
 
+#include "Cpp_Helpers.hpp"
+
 using std::vector;
 using std::ostream;
 using std::list;
+using std::endl;
+
+struct IndexSearchResult{ // A container to hold a search result for an index that cannot have a negative value
+    bool   result; // Is the result a valid one?
+    size_t index; //- If so, which is the index we like best?
+};
 
 size_t random_false_elem_index( std::vector<bool> vec );
 std::vector<std::vector<size_t>> enumerate_in_base( size_t digits , size_t base );
