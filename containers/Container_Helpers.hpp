@@ -12,6 +12,7 @@ using std::ostream;
 using std::list;
 using std::endl;
 
+// a28102be8c2d19c8c5281d38689703ab9f14ef61
 struct IndexSearchResult{ // A container to hold a search result for an index that cannot have a negative value
     bool   result; // Is the result a valid one?
     size_t index; //- If so, which is the index we like best?
