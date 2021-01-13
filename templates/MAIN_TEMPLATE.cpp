@@ -14,12 +14,19 @@ Template Version: 2018-06-06
 /********** Init *********************************************************************************/
 
 /***** Includes *****/
+/** Standard **/
+#include <string>
+#include <iostream>
 
 /** Special **/
 
 /** Local **/
 
 /***** Namespaces & Aliases *****/
+using std::string;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 /***** Constants & GLobals *****/
 
