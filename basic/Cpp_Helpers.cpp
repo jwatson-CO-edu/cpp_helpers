@@ -6,15 +6,7 @@ Functions of general use for C++ programming
 Template Version: 2017-04-13
 ***********/
 
-#include "Cpp_Helpers.h"
-
-// == Struct Helpers ==
-
-IndexSearchResult default_false_result(){  return IndexSearchResult{ false , 0 };  } // Return a failed search result , index 0
-
-IDSearchResult default_ID_search_rs(){  return IDSearchResult{ false , 0 };  } // Return a failed search result , index 0
-
-// __ End Helpers __
+#include "Cpp_Helpers.hpp"
 
 // == Debug Tools ==
 
@@ -29,8 +21,6 @@ void sep( string title , size_t width , char dingbat ){
     // Print a separating title card for debug 
     cout << string( width , dingbat ) << " " << title << " " << string( width , dingbat ) << endl;
 }
-
-void newline(){ cout << endl; } // print a new line
 
 string yesno( bool condition ){  return ( condition ? "YES" : "NO" );  }
 
@@ -68,13 +58,7 @@ void toggle( bool& bit ){  bit = !bit;  }
 
 // == Math Tools ==
 
-void rand_init(){  srand( time( NULL ) );  }
-
-float rand_float(){ return (float)  rand() / (float)RAND_MAX; }
-
-double rand_dbbl(){ return (double) rand() / (double)RAND_MAX; }
-
-bool dice_roll( double prob ){  return rand_dbbl() < prob;  }
+bool dice_roll( double prob ){  return rand_01() < prob;  }
 
 int    randrange( int end ){    return (int)( rand() % end );    }
 size_t randrange( size_t end ){ return (size_t)( rand() % end ); }
@@ -86,7 +70,7 @@ int randrange( int bgn , int end ){ return bgn + (int)( rand() % ( end - bgn ) )
 usll tri_num( usll n ){ return n * ( n + 1 ) / 2; } // --- Return the nth triangular number
 size_t tri_num( size_t n ){ return n * ( n + 1 ) / 2; } // Return the nth triangular number
 
-double round_zero( double num ){ if( abs( num ) < EPSLNDB ){ return 0.0d; }else{ return num; } }
+double round_zero( double num ){ if( abs( num ) < EPSLNDB ){ return 0.0; }else{ return num; } }
 
 // __ End Math __
 
@@ -127,25 +111,6 @@ string timestamp(){
          + prepad( to_string( timePtr->tm_mday ) , 2 , '0' ) + "_" + prepad( to_string( timePtr->tm_hour ) , 2 , '0' )
          + "-" + prepad( to_string( timePtr->tm_min ) , 2 , '0' ) + "-" + prepad( to_string( timePtr->tm_sec ) , 2 , '0' );
 }
-
-// = Linux File Tools =
-
-#ifdef IS_LINUX
-
-std::vector<string> list_dir( string dirStr ){ 
-    // Return a string vector that contains all the entries in the directory
-    // URL , Iterate over files: https://stackoverflow.com/a/612112
-    std::vector<string> rtnEntries;
-    DIR* dirp = opendir( dirStr.c_str() );
-    dirent* dp = nullptr;
-    while ( ( dp = readdir(dirp) ) != NULL ){  rtnEntries.push_back( string( dp->d_name ) );  }
-    (void)closedir( dirp );
-    return rtnEntries;
-}
-
-#endif
-
-// _ End Linux _
 
 // __ End File __
 
@@ -225,7 +190,7 @@ std::vector<double> tokenize_to_dbbl_w_separator( string rawStr , char separator
     return tokens;
 }
 
-stdvec<float> tokenize_to_float_w_separator( string rawStr , char separator ){ 
+vector<float> tokenize_to_float_w_separator( string rawStr , char separator ){ 
     // Return a vector of doubles between 'separator'
     size_t len = rawStr.length();
     //~ tokens = [] # 
@@ -325,15 +290,6 @@ std::vector<std::vector<bool>> bool_false_vec_vec( size_t length ){
     return rtnVecVec;
 }
 
-size_t random_false_elem_index( std::vector<bool> vec ){
-    // Return a random index of an element that has value 'false'
-    std::vector<size_t> availableIndices;
-    size_t vecLen = vec.size();
-    // Build a vector of available 'false' indices so that we are guaranteed to make the right choice
-    for( size_t i = 0 ; i < vecLen ; i++ ){ if( vec[i] == false ){ availableIndices.push_back( i ); } }
-    return rand_choice( availableIndices );
-}
-
 bool all_elem_true( const std::vector<bool>& bulVec ){ 
     // Return true if all elements true , otherwise return false
     size_t len = bulVec.size();
@@ -392,7 +348,7 @@ std::vector<size_t> vec_index_zeros( size_t len ){
 
 std::vector<double> vec_dbbl_zeros( size_t len ){
     std::vector<double> rntVec;
-    for( size_t i = 0 ; i < len ; i++ ){  rntVec.push_back( 0.0d );  }
+    for( size_t i = 0 ; i < len ; i++ ){  rntVec.push_back( 0.0 );  }
     return rntVec;
 }
 
@@ -420,32 +376,6 @@ bool is_err( const std::vector<double>& vec ){
     return true;
 }
 
-std::vector<std::vector<size_t>> enumerate_in_base( size_t digits , size_t base ){
-    // Return all possible combinations of digits in 'base' that have 'digits'
-    std::vector<std::vector<size_t>> rtnVecVec;
-    // Basement Case: User asked for no digits
-    if( digits == 0 ){  return rtnVecVec;  }
-    // Base Case: There is only one digit , Count from 0 to 'base'-1
-    if( digits == 1 ){
-        for( size_t i = 0 ; i < base ; i++ ){
-            std::vector<size_t> temp = { i };
-            rtnVecVec.push_back( temp );
-        }
-        return rtnVecVec;
-    }
-    // Recursive Case: There is more than 1 digit , Generate leading digits and append trailing digits
-    // 1. Fetch trailing digits
-    std::vector<std::vector<size_t>> trailingDigits = enumerate_in_base( digits-1 , base );
-    size_t /* ------------------- */ trLen /* -- */ = trailingDigits.size();
-    std::vector<size_t> /* ------ */ leadingDigit;
-    // 2. Generate leading digits and append trailing digits
-    for( size_t i = 0 ; i < base ; i++ ){
-        leadingDigit = { i };
-        for( size_t j = 0 ; j < trLen ; j++ ){  rtnVecVec.push_back(  vec_join( leadingDigit , trailingDigits[j] )  );  }
-    }
-    return rtnVecVec;
-}
-
 // __ End Container __
 
 // === Functors ===
@@ -471,3 +401,153 @@ string pointer_info_str( void* generalPointer ){
 }
 
 // ___ End Memory ___
+
+
+
+void print_binary_int( unsigned int arg ){
+    // print the binary representation of a uint
+    printf( "0b " );
+    for( int i  = 0 ; i < 32 ; i++ ){
+        printf( "%i" , ( arg >> ( 31 - i ) ) & 1 );
+        if( (i+1)%8 == 0 )  printf( " " );
+    }
+}
+
+void print_hex_int( unsigned int a ){
+	// Print the hexadecimal representation of a uint
+	unsigned int byte;
+	printf( "0x " );
+	for( int i = 3 ; i > -1 ; i-- ){ 
+		byte = ( a >> ( i*8 ) ) & 0xFF;
+		printf( "%02hhX " , byte );
+	}
+}
+
+void print_binary_char( unsigned char arg ){
+    // print the binary representation of a uchar
+    printf( "0b " );
+    for( int i  = 0 ; i < 8 ; i++ ){
+        printf( "%i" , ( arg >> ( 7 - i ) ) & 1 );
+    }
+}
+
+void random_seed_RUN_ONCE_MAIN(){
+    srand( time(NULL) ); // init random
+}
+
+double rand_01(){ // NOTE: Not the best way for uniform rand, but is EASIEST
+    // Return a random number on [0,1)
+    // NOTE: This function assumes that an appropriate random seed was set in `main`
+    return rand() / ( RAND_MAX + 1.0 );
+}
+
+double time_elapsed( StdTime& clok ){
+    StdTime t = StdClock::now();  // 1. Get the time now
+    // 2. Compute span and convert microseconds to seconds
+    double elapsed = 
+        duration_cast<microseconds>(t - clok).count()
+        / (double) 1e6;
+    // 3. Reset the time marker var        
+    clok = t;
+    // 4. Return
+    return elapsed;
+}
+
+void fill_array_rand( double arr[] , size_t len ){
+    // Populate an array with random doubles on [0,1)
+    for( size_t i = 0 ; i < len ; i++ ){
+        arr[i] = rand_01();
+    }
+}
+
+string yes_no( bool expr ){
+    // Return an affirmative string for true -or- a negative string for false
+    return ( expr ? "YES" : "NO" );
+}
+
+ostream& operator<<( ostream& os , const std::vector<u_char>& vec ) { // ostream '<<' operator for vectors
+    // NOTE: This function assumes that the ostream '<<' operator for T has already been defined
+    os << "[ ";
+    for (size_t i = 0; i < vec.size(); i++) {
+        os << (long long int) vec[i];
+        if (i + 1 < vec.size()) { os << ", "; }
+    }
+    os << " ]";
+    return os; // You must return a reference to the stream!
+}
+
+bool check_exist( string path , string check ){
+    // Use `stat` to check if something exists
+    struct stat buffer;   
+    bool /*- */ result;
+    stat( path.c_str() , &buffer );
+
+    if( check == "f" || check == "file" || check == "F" || check == "FILE" )
+        result = S_ISREG( buffer.st_mode );
+    else if( check == "d" || check == "directory" || check == "D" || check == "DIRECTORY" )
+        result =  S_ISDIR( buffer.st_mode );
+    else
+        result = false;
+
+    return result;
+}
+
+vector<string> split( string s , char sep ){
+    vector<string> rtnVec;
+    string currWord; // ------------- Current word between separators
+    s.append( string( 1 , sep ) ); // Delimiter termination hack
+    int len = s.length(); // -------- Length of input string
+    // For each char in the string
+    for( int i = 0 ; i < len ; i++ ){
+        if( s[i] != sep ){ // If not separator, accumulate char to `currWord`
+            currWord += s[i];
+        }else{ // else is separator, 
+            // add word if we accumulated one
+            if( currWord.length() > 0 ){  rtnVec.push_back( currWord );  } // Assign word to array
+            currWord = "";
+        }
+    }
+    return rtnVec;
+}
+
+vector<string> list_path( string path ){
+    // List all the files in a directory
+    // https://stackoverflow.com/a/37494654
+    vector<string> rtnVec;
+    for( const auto& entry : fs::directory_iterator( path ) ){  rtnVec.push_back( entry.path().string() );  }
+    return rtnVec;
+}
+
+bool has_substr( string& superStr , string& subStr ){
+    // Return true if `superStr` containst `subStr`, otherwise return false
+    std::size_t found = superStr.find( subStr );
+    return found != string::npos;
+}
+
+void print_args( int c, char *v[] ){
+    cout << "print_args! " << c << endl;
+    for( int i = 0 ; i < c ; i++ ){  
+        cout << *(v[i]) << ( i+1 >= c ? "\n" : ", " );  
+    }
+}
+
+string get_file_string( string path ){
+    // Get the contents of the file at `path` as a string
+    std::ifstream f( path );
+    string rtnStr;
+    bool _DEBUG = false;
+    if( f ){
+        std::stringstream buf;
+        buf << f.rdbuf();
+        f.close();
+        rtnStr = buf.str();
+    }else{
+        cout << "File " << path << " could NOT be opened!" << endl;
+    }
+    int strLen = rtnStr.length();
+    if( strLen == 0 )
+        cout << "WARN: " << path << " yielded an EMPTY string!" << endl;
+    else if( _DEBUG )
+        cout << path << " yielded " << strLen << " characters.""" << endl;
+    return rtnStr;
+}
